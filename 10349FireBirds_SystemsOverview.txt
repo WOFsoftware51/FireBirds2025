@@ -1,0 +1,13 @@
+10349 FIREBIRDS SYSTEM OVERVIEW:
+	- Swerve DriveTrain
+		- 8 Motors
+		- 4 Encoders
+	- Algae Intake
+		- 1 Falcon
+	- Algae Intake Wrist
+		- 1 Falcon
+	- Coral L1 Scorer
+		- 1 CIM
+	- Hanger
+		- ?
+	
