@@ -1,5 +1,7 @@
 package frc.robot;
 
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -38,7 +40,7 @@ public class RobotContainer {
     /*Subsystems */
     private final Swerve s_Swerve = new Swerve();
     // private final AlgaeIntake m_AlgaeIntake = new AlgaeIntake();
-    private final CoralScorer m_CoralScorer = new CoralScorer();
+    // private final CoralScorer m_CoralScorer = new CoralScorer();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -67,10 +69,10 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
         // operator.a().whileTrue(new AlgaeWrist(m_AlgaeIntake));
         // operator.b().whileTrue(new AlgaeIntakeCommand(m_AlgaeIntake));
-        driver.rightTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
-        driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
-        driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralOnSlow()).finallyDo(()-> m_CoralScorer.coralOff()));
-
+        // driver.rightTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
+        // driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
+        // driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralOnSlow()).finallyDo(()-> m_CoralScorer.coralOff()));
+        // driver.rightBumper().whileTrue(Commands.run(()->{Global_Variables.isBoost = true;}).finallyDo(()->{Global_Variables.isBoost = false;}));
     }
 
     /**
@@ -80,6 +82,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve);
+        return new PathPlanner_Test();
     }
 }

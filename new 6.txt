@@ -1,0 +1,18 @@
+Auton Naming Strategy:
+	[StartingPosition]_[NextPostion]_ ... _[EndPosition]
+	
+	
+		L (LEFT)
+		C (CENTER)
+		R (RIGHT)
+		REEF:
+			R0
+			R1
+			R2
+			R3
+			R4
+			R5
+		Human Player Station:
+			HPL (Human Player LEFT)
+			HPR (Human Player RIGHT)
+			
