@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.AlgaeIntake;
+import frc.robot.subsystems.AlgaeIntake_Wrist;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AlgaeWrist extends Command {
+public class AlgaeWristCommand extends Command {
   /** Creates a new AlgaeWrist. */
-  private AlgaeIntake mAlgaeWrist;
-  public AlgaeWrist(AlgaeIntake algaeWrist) { 
+  private AlgaeIntake_Wrist mAlgaeWrist;
+  public AlgaeWristCommand(AlgaeIntake_Wrist algaeWrist) { 
     this.mAlgaeWrist = algaeWrist;
     addRequirements(mAlgaeWrist);
   }
@@ -23,13 +23,13 @@ public class AlgaeWrist extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    mAlgaeWrist.setWristSpeed();
+    mAlgaeWrist.on();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mAlgaeWrist.wristOff();
+    mAlgaeWrist.off();
   }
 
   // Returns true when the command should end.
