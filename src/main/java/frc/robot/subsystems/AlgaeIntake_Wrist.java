@@ -30,7 +30,7 @@ public class AlgaeIntake_Wrist extends SubsystemBase {
     mAlgaeWrist.set(-0.3);
   }
   public void onPercent(double speed){
-    mAlgaeWrist.set(speed);
+    mAlgaeWrist.set(-speed * 0.35);
   }
   @Override
   public void periodic() {
