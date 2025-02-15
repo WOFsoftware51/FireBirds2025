@@ -12,27 +12,26 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class AlgaeIntake extends SubsystemBase {
-  private TalonFX mAlgaeIntake = new TalonFX(Constants.AlgaeIntakeClass.ALGAEINTAKEID, Constants.CANIVORE_NAME);
+public class AlgaeIntake_Wrist extends SubsystemBase {
+  private TalonFX mAlgaeWrist = new TalonFX(Constants.AlgaeIntakeClass.ALGAEWRISTID, Constants.CANIVORE_NAME);
 
   /** Creates a new AlgaeIntake. */
-  public AlgaeIntake() {
-    mAlgaeIntake.setNeutralMode(NeutralModeValue.Brake);
+  public AlgaeIntake_Wrist() {
+    mAlgaeWrist.setNeutralMode(NeutralModeValue.Brake);
   } 
 
   public void on(){
-    mAlgaeIntake.set(1.0);
+    mAlgaeWrist.set(0.3);
   }
   public void off(){
-    mAlgaeIntake.set(0.0);
+    mAlgaeWrist.set(0.0);
   }
   public void reverse(){
-    mAlgaeIntake.set(-1.0);
+    mAlgaeWrist.set(-0.3);
   }
   public void onPercent(double speed){
-    mAlgaeIntake.set(speed);
+    mAlgaeWrist.set(-speed * 0.35);
   }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

@@ -19,7 +19,7 @@ public class CoralScorer extends SubsystemBase {
     mCoralMotor.getConfigurator().apply(new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive));
   }
   public void coralOn(){
-    mCoralMotor.set(0.35); 
+    mCoralMotor.set(0.20); 
   }
   public void coralOnSlow(){
     mCoralMotor.set(0.15); 

@@ -39,8 +39,9 @@ public class RobotContainer {
 
     /*Subsystems */
     private final Swerve s_Swerve = new Swerve();
-    // private final AlgaeIntake m_AlgaeIntake = new AlgaeIntake();
-    // private final CoralScorer m_CoralScorer = new CoralScorer();
+    private final AlgaeIntake m_AlgaeIntake = new AlgaeIntake();
+    private final AlgaeIntake_Wrist m_AlgaeIntake_Wrist = new AlgaeIntake_Wrist();
+    private final CoralScorer m_CoralScorer = new CoralScorer();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -53,6 +54,7 @@ public class RobotContainer {
                 () -> robotCentric.getAsBoolean()
             )
         );
+        m_AlgaeIntake_Wrist.setDefaultCommand(new AlgaeWrist_Manual(m_AlgaeIntake_Wrist, ()-> operator.getLeftY()));
 
         // Configure the button bindings
         configureButtonBindings();
@@ -67,10 +69,10 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
-        // operator.a().whileTrue(new AlgaeWrist(m_AlgaeIntake));
-        // operator.b().whileTrue(new AlgaeIntakeCommand(m_AlgaeIntake));
-        // driver.rightTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
-        // driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
+        operator.rightTrigger(0.8).whileTrue(new AlgaeIntakeCommand(m_AlgaeIntake));
+        operator.leftTrigger(0.8).whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
+        driver.rightTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
+        driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
         // driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralOnSlow()).finallyDo(()-> m_CoralScorer.coralOff()));
         // driver.rightBumper().whileTrue(Commands.run(()->{Global_Variables.isBoost = true;}).finallyDo(()->{Global_Variables.isBoost = false;}));
     }
