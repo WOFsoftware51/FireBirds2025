@@ -10,4 +10,10 @@
 		- 1 CIM
 	- Hanger
 		- ?
-	
+	- Coral Reef Claw Arm Thing
+		- ARM
+			- 1 Falcon
+		- WRIST
+			- 1 Falcon
+		- Intake
+			- 1 Falcon
