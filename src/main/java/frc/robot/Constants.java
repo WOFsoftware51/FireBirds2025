@@ -17,6 +17,11 @@ public final class Constants {
     public static final double stickDeadband = 0.1;
     public static final String CANIVORE_NAME = "CANivore";
 
+    public static final int X_BUTTON = 1;
+    public static final int A_BUTTON = 2;
+    public static final int B_BUTTON = 3;
+    public static final int Y_BUTTON = 4;
+
     public static final class CoralScorerClass {
         public static final int CORALSCORERID = 3;
     }
@@ -25,8 +30,36 @@ public final class Constants {
         public static final int ALGAEINTAKEID = 1;
         public static final int ALGAEWRISTID = 2;
     }
+    public static final class ArmClass {
+        public static final int ARMID = 4;
+        public static final int ARMCANCODERID = 7;
+        public static final double ARM_GEAR_RATIO = 100.0;
 
+        public static final double ARM_LVL1_POSITION = 0.0;
+        public static final double ARM_LVL1_SCORE = 0.0;
+        public static final double ARM_LVL2_POSITION = 0.0;
+        public static final double ARM_LVL2_SCORE = 0.0;
+        public static final double ARM_HP_INTAKE = 0.0;
+        public static final double ARM_HOME = 0.0;
+        
+    }
+   
+    public static final class IntakeClass {
+        public static final int INTAKEID = 5;
+    }
+    public static final class WristClass {
+        public static final int WRISTID = 6;
+        public static final int WRISTCANCODERID = 8;
+        public static final double WRIST_GEAR_RATIO = 100.0;
 
+        public static final double WRIST_LVL1_POSITION = 0.0;
+        public static final double WRIST_LVL1_SCORE = 0.0;
+        public static final double WRIST_LVL2_POSITION = 0.0;
+        public static final double WRIST_LVL2_SCORE = 0.0;
+        public static final double WRIST_HP_INTAKE = 0.0;
+        public static final double WRIST_HOME = 0.0;
+        
+    }
     public static final class Swerve {
         public static final double DRIVE_SPEED = 0.6;
         public static final int pigeonID = 1;
