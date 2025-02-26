@@ -56,11 +56,10 @@ public class Wrist extends SubsystemBase {
 
 
   public void WristSetSpeed(double x){
-    mWristMotor.setControl(dutyCycleOut.withPosition(x));
+    mWristMotor.setControl(dutyCycleOut.withOutput(x));
   }
   public void WristToPostion(double target) {
-    wristMotionMagicDutyCycle.withPosition(target);
-    mWristMotor.setControl(wristPositionDutyCycle.withPosition(target));
+    mWristMotor.setControl(wristMotionMagic.withPosition(target));
   }
 
 

@@ -19,3 +19,13 @@
 			- 1 Falcon
 
 
+CONTROLS:
+
+	- GOTOPOSITIONS:
+		- X: HUMAN PLAYER 
+		- Y: HOME
+		- A: SCORE 1
+		- B: SCORE 2
+	- Algae Intake
+		- IN: Right Trigger
+		- OUT: LEFT Trigger

@@ -44,7 +44,7 @@ public class WristGoToPositionCommand extends Command {
     case Constants.B_BUTTON: 
       wristTarget = Constants.WristClass.WRIST_LVL2_SCORE;
       break;
-
+      
     case Constants.X_BUTTON:
       wristTarget = Constants.WristClass.WRIST_HP_INTAKE;
       break;
@@ -56,8 +56,9 @@ public class WristGoToPositionCommand extends Command {
     default:
       wristTarget = Constants.WristClass.WRIST_HOME;
       break;
-   }
-   mWrist.WristToPostion(wristTarget);
+    }
+
+    mWrist.WristToPostion(wristTarget);
   }
   
 

@@ -2,28 +2,45 @@ package frc.robot.autos;
 
 import frc.robot.AutoPath;
 import frc.robot.Auton_Functions;
+import frc.robot.commands_auton.Auton_Wait;
 import frc.robot.subsystems.CoralScorer;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class Middle_Right_4_Piece extends SequentialCommandGroup {
-    public Middle_Right_4_Piece(CoralScorer coralScorer){
+public class Left_5_Piece extends SequentialCommandGroup {
+    public Left_5_Piece(CoralScorer coralScorer){
 
-        AutoPath C_R0 =  AutoPath.PP("C_R0");  
-        AutoPath R0_HPR =  AutoPath.PP("R0_HPR");
-        AutoPath HPR_R2 =  AutoPath.PP("HPR_R2");
-        AutoPath R2_HPR =  AutoPath.PP("R2_HPR");
-        // AutoPath HPR_R2 =  AutoPath.PP("HPR_R2");
-        // AutoPath R2_HPR =  AutoPath.PP("R2_HPR");
-        AutoPath HPR_R1 =  AutoPath.PP("HPR_R1");
-      
-    
+        AutoPath L_R5 =  AutoPath.PP("L_R5");  
+        AutoPath R5_HPL =  AutoPath.PP("R5_HPL");
+        AutoPath HPL_R4 =  AutoPath.PP("HPL_R4");
+        AutoPath R4_HPL =  AutoPath.PP("R4_HPRL");
+        // AutoPath HPL_R4 =  AutoPath.PP("HPL_R4");
+        // AutoPath R4_HPL =  AutoPath.PP("R4_HPL");
+        AutoPath HPL_R3 =  AutoPath.PP("HPL_R3");
+        AutoPath R3_HPL =  AutoPath.PP("R3_HPL");
+        //AutoPath HPL_R3 =  AutoPath.PP("HPL_R3");
         addCommands(
-            C_R0.resetOdometryToStart(),
-            C_R0.follow(),
-            Auton_Functions.autonScore(coralScorer)
-            HPR_R2.follow(),
-            HPR_R2.follow()
-
-            );
+            L_R5.resetOdometryToStart(),
+            L_R5.follow(),
+            Auton_Functions.autonScore(coralScorer),
+            R5_HPL.follow(),
+            //HP intake
+            new Auton_Wait(50),
+            HPL_R4.follow(),
+            Auton_Functions.autonScore(coralScorer),
+            R4_HPL.follow(),
+            //HP intake
+            new Auton_Wait(50),
+            HPL_R4.follow(),
+            Auton_Functions.autonScore(coralScorer),
+            R4_HPL.follow(),
+            //HP intake
+            new Auton_Wait(50),
+            HPL_R3.follow(),
+            Auton_Functions.autonScore(coralScorer),
+            R3_HPL.follow(),
+            //HP intake
+            new Auton_Wait(50),
+            HPL_R3.follow(),
+            Auton_Functions.autonScore(coralScorer)  );
     }
 }

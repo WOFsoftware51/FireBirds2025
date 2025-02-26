@@ -2,19 +2,25 @@ package frc.robot.autos;
 
 import frc.robot.AutoPath;
 import frc.robot.Auton_Functions;
-import frc.robot.subsystems.CoralScorer;
+import frc.robot.Constants;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
-public class Middle_1_Piece extends SequentialCommandGroup {
-    public Middle_1_Piece(CoralScorer coralScorer){
+public class New_Left_2_Piece extends SequentialCommandGroup {
+    public New_Left_2_Piece(Intake intake, Wrist wrist, Arm arm){
 
-        AutoPath C_R0 = AutoPath.PP("C_R0");
-        
-        AutoPath R_R1 = AutoPath.PP("R_R1");
-        addCommands(
-            R_R1.resetOdometryToStart(),
-            R_R1.follow(),
-            Auton_Functions.autonScore(coralScorer)
-            );
+        AutoPath L_R5 =  AutoPath.PP("L_R5");
+        AutoPath R5_HPL =  AutoPath.PP("R5_HPL");
+        AutoPath HPL_R4 =  AutoPath.PP("HPL_R4");
+          addCommands(
+            L_R5.resetOdometryToStart(),
+            L_R5.follow(),
+            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.B_BUTTON),
+            R5_HPL.follow(),
+            Auton_Functions.autonIntakeTop(intake),
+            HPL_R4.follow(),
+            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.B_BUTTON) );
     }
 }

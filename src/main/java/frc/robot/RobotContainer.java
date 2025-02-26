@@ -43,6 +43,10 @@ public class RobotContainer {
     private final AlgaeIntake m_AlgaeIntake = new AlgaeIntake();
     private final AlgaeIntake_Wrist m_AlgaeIntake_Wrist = new AlgaeIntake_Wrist();
     private final CoralScorer m_CoralScorer = new CoralScorer();
+    private final Arm m_Arm = new Arm();
+    private final Wrist m_Wrist = new Wrist();
+    private final Intake m_Intake = new Intake();
+
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -70,13 +74,25 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
-        operator.rightTrigger(0.8).whileTrue(new AlgaeIntakeCommand(m_AlgaeIntake));
-        operator.leftTrigger(0.8).whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
         driver.rightTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
         driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
         // driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralOnSlow()).finallyDo(()-> m_CoralScorer.coralOff()));
         // driver.rightBumper().whileTrue(Commands.run(()->{Global_Variables.isBoost = true;}).finallyDo(()->{Global_Variables.isBoost = false;}));
-        operator.a().whileTrue(new ArmGoToPositionCommand(null, Constants.A_BUTTON));
+        
+        /**Scoring*/
+        operator.rightTrigger(0.8).whileTrue(new AlgaeIntakeCommand(m_AlgaeIntake));
+        operator.leftTrigger(0.8).whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
+        operator.rightBumper().whileTrue(new IntakeForward(m_Intake));
+        operator.leftBumper().whileTrue(new IntakeReverse(m_Intake));
+
+        operator.a().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.A_BUTTON));
+        operator.a().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.A_BUTTON));
+        operator.b().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.B_BUTTON));
+        operator.b().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.B_BUTTON));
+        operator.x().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.X_BUTTON));
+        operator.x().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.X_BUTTON));
+        operator.y().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Y_BUTTON));
+        operator.y().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.Y_BUTTON));
     }
 
     /**
