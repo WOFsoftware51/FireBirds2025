@@ -16,6 +16,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -29,6 +30,7 @@ public class Arm extends SubsystemBase {
   private DutyCycleOut dutyCycleOut = new DutyCycleOut(0);
   private PositionDutyCycle armPositionDutyCycle = new PositionDutyCycle(0);
   private MotionMagicDutyCycle armMotionMagic = new MotionMagicDutyCycle(0);
+  private double m_target = 0;
 
   public Arm() {
     mArmMotor.getConfigurator().apply(new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive));
@@ -59,29 +61,34 @@ public class Arm extends SubsystemBase {
     mArmMotor.setControl(dutyCycleOut.withOutput(x));
   }
   public void ArmToPostion(double target) {
+    m_target = target;
     mArmMotor.setControl(armMotionMagic.withPosition(target));
   }
-
-
-  
-
   public void armActive(double speed ){
     mArmMotor.set(speed); 
   }
-
-    
   public void armOff(){
-  mArmMotor.set(0);
+   mArmMotor.set(0);
   }
-  
+  public void armSetPosition(double newPosition){
+    mArmMotor.setPosition(newPosition * Constants.ArmClass.ARM_GEAR_RATIO / 360);
+  }
   public double getArmPosition(){
-    return mArmCANcoder.getPosition().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;
+    return mArmMotor.getPosition().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;
   }
-
+  public void updateEncoderPosition(){
+    armSetPosition(mArmCANcoder.getPosition().getValueAsDouble() - Constants.ArmClass.ARMCANCODEROFFSET);
+  }
+  public double getArmVelocity(){
+    return mArmMotor.getVelocity().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Arm Position", getArmPosition());
+    SmartDashboard.putNumber("Arm Speed", getArmVelocity());
+    SmartDashboard.putNumber("Arm Target Position", m_target);
   }
 }
 

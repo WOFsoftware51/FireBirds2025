@@ -17,6 +17,7 @@ import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
 import com.ctre.phoenix6.controls.PositionDutyCycle;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -28,6 +29,8 @@ public class Wrist extends SubsystemBase {
   private DutyCycleOut dutyCycleOut = new DutyCycleOut(0);
   private PositionDutyCycle wristPositionDutyCycle = new PositionDutyCycle(0);
   private MotionMagicDutyCycle wristMotionMagic = new MotionMagicDutyCycle(0);
+
+  private double m_target = 0;
 
   public Wrist() {
     TalonFXConfiguration wristConfig = new TalonFXConfiguration();
@@ -47,11 +50,10 @@ public class Wrist extends SubsystemBase {
     slot0.kD = 0.0;
     slot0.kV = 0.0;
     slot0.kS = 0.375; // Approximately 0.375V to get the mechanism moving
-    
-    
 
     mWristMotor.setNeutralMode(NeutralModeValue.Brake);
     mWristMotor.getConfigurator().apply(new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive));
+    updateEncoderPosition();
   }
 
 
@@ -59,21 +61,33 @@ public class Wrist extends SubsystemBase {
     mWristMotor.setControl(dutyCycleOut.withOutput(x));
   }
   public void WristToPostion(double target) {
+    m_target = target;
     mWristMotor.setControl(wristMotionMagic.withPosition(target));
   }
-
-
+  public void wristSetPosition(double newPosition){
+    mWristMotor.setPosition(newPosition * Constants.ArmClass.ARM_GEAR_RATIO / 360);
+  }
+  public void updateEncoderPosition(){
+    wristSetPosition(mWristCANcoder.getPosition().getValueAsDouble() - Constants.WristClass.WRISTCANCODEROFFSET);
+  }
     //wristOnPercent
   public void wristActive(double speed ){
     mWristMotor.set(speed); 
   }
-  public double getArmPosition(){
-    return mWristCANcoder.getPosition().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;
+  public double getWristPosition(){
+    return mWristMotor.getPosition().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;
+  }
+
+  public double getWristVelocity(){
+    return mWristMotor.getVelocity().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Wrist Position", getWristPosition());
+    SmartDashboard.putNumber("Wrist Speed", getWristVelocity());
+    SmartDashboard.putNumber("Wrist Target Position", m_target);
   }
 }
     

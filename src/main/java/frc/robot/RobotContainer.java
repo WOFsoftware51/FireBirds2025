@@ -73,7 +73,9 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
         /* Driver Buttons */
-        zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
+        driver.start().onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
+        operator.start().whileTrue(Commands.runOnce(()-> m_AlgaeIntake_Wrist.setPosition(0)));
+        
         driver.rightTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
         driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
         // driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralOnSlow()).finallyDo(()-> m_CoralScorer.coralOff()));
