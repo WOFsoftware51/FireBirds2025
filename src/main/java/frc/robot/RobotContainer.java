@@ -26,6 +26,7 @@ public class RobotContainer {
     /* Controllers */
     private final CommandXboxController driver = new CommandXboxController(0);
     private final CommandXboxController operator = new CommandXboxController(1);
+    private final CommandXboxController TestController = new CommandXboxController(2);
     
 
 
@@ -47,7 +48,6 @@ public class RobotContainer {
     private final Wrist m_Wrist = new Wrist();
     private final Intake m_Intake = new Intake();
 
-
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
         s_Swerve.setDefaultCommand(
@@ -60,10 +60,11 @@ public class RobotContainer {
             )
         );
         m_AlgaeIntake_Wrist.setDefaultCommand(new AlgaeWrist_Manual(m_AlgaeIntake_Wrist, ()-> operator.getLeftY()));
-
+        m_Wrist.setDefaultCommand(new Wrist_Command(m_Wrist, ()-> operator.getRightY()));
+        m_Arm.setDefaultCommand(new Arm_Command(m_Arm, ()-> TestController.getRightY()));
         // Configure the button bindings
         configureButtonBindings();
-    }
+    } 
 
     /**
      * Use this method to define your button->command mappings. Buttons can be created by
@@ -74,8 +75,12 @@ public class RobotContainer {
     private void configureButtonBindings() {
         /* Driver Buttons */
         driver.start().onTrue(new InstantCommand(() -> s_Swerve.zeroHeading()));
-        operator.start().whileTrue(Commands.runOnce(()-> m_AlgaeIntake_Wrist.setPosition(0)));
-        
+        operator.back().whileTrue(Commands.runOnce(()-> m_Wrist.wristSetPosition(0)));
+        operator.back().whileTrue(Commands.runOnce(()-> m_AlgaeIntake_Wrist.setPosition(0)));
+        operator.back().whileTrue(Commands.runOnce(()-> m_Arm.armSetPosition(0)));
+
+        operator.start().whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, 2));
+
         driver.rightTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
         driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
         // driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralOnSlow()).finallyDo(()-> m_CoralScorer.coralOff()));
@@ -88,13 +93,13 @@ public class RobotContainer {
         operator.leftBumper().whileTrue(new IntakeReverse(m_Intake));
 
         operator.a().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.A_BUTTON));
-        operator.a().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.A_BUTTON));
+        // operator.a().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.A_BUTTON));
         operator.b().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.B_BUTTON));
-        operator.b().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.B_BUTTON));
+        // operator.b().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.B_BUTTON));
         operator.x().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.X_BUTTON));
-        operator.x().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.X_BUTTON));
+        // operator.x().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.X_BUTTON));
         operator.y().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Y_BUTTON));
-        operator.y().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.Y_BUTTON));
+        // operator.y().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.Y_BUTTON));
     }
 
     /**

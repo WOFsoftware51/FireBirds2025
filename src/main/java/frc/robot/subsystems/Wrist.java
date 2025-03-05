@@ -51,8 +51,9 @@ public class Wrist extends SubsystemBase {
     slot0.kV = 0.0;
     slot0.kS = 0.375; // Approximately 0.375V to get the mechanism moving
 
-    mWristMotor.setNeutralMode(NeutralModeValue.Brake);
-    mWristMotor.getConfigurator().apply(new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive));
+    wristConfig.MotorOutput.withInverted(InvertedValue.Clockwise_Positive);
+    wristConfig.MotorOutput.withNeutralMode(NeutralModeValue.Brake);
+    mWristMotor.getConfigurator().apply(wristConfig);
     updateEncoderPosition();
   }
 
@@ -68,7 +69,8 @@ public class Wrist extends SubsystemBase {
     mWristMotor.setPosition(newPosition * Constants.ArmClass.ARM_GEAR_RATIO / 360);
   }
   public void updateEncoderPosition(){
-    wristSetPosition(mWristCANcoder.getPosition().getValueAsDouble() - Constants.WristClass.WRISTCANCODEROFFSET);
+    if(mWristCANcoder.isConnected())
+      wristSetPosition(mWristCANcoder.getPosition().getValueAsDouble() - Constants.WristClass.WRISTCANCODEROFFSET);
   }
     //wristOnPercent
   public void wristActive(double speed ){

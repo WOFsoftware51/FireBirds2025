@@ -29,6 +29,11 @@ public final class Constants {
     public static final class AlgaeIntakeClass {
         public static final int ALGAEINTAKEID = 1;
         public static final int ALGAEWRISTID = 2;
+        public static final double ALGAE_INTAKE_POSITION = 55.0;
+        public static final double ALGAE_INTAKE_HOME = 0.0;
+        public static final double ALGAE_INTAKE_GEAR_RATIO = 0.0;
+        public static final double ALGAEINTAKECANCODERID = 3;
+
     }
     public static final class ArmClass {
         public static final int ARMID = 4;
@@ -37,7 +42,7 @@ public final class Constants {
         public static final double ARM_GEAR_RATIO = 100.0;
 
         public static final double ARM_LVL1_POSITION = 0.0;
-        public static final double ARM_LVL1_SCORE = 0.0;
+        public static final double ARM_LVL1_SCORE = -50.0;
         public static final double ARM_LVL2_POSITION = 0.0;
         public static final double ARM_LVL2_SCORE = 0.0;
         public static final double ARM_HP_INTAKE = 0.0;

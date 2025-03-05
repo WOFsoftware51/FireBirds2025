@@ -39,9 +39,9 @@ public class Arm extends SubsystemBase {
     armMotionMagic.MotionMagicAcceleration = 300; //160 // Take approximately 0.5 seconds %to reach max vel
     armMotionMagic.MotionMagicJerk = 2400;//1600// Take approximately 0.2 seconds to reach max accel 
     armConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
-    armConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = -90*Constants.ArmClass.ARM_GEAR_RATIO/360;
+    armConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = -97.0*Constants.ArmClass.ARM_GEAR_RATIO/360;
     armConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
-    armConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 90*Constants.ArmClass.ARM_GEAR_RATIO/360;
+    armConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 5.0*Constants.ArmClass.ARM_GEAR_RATIO/360;
     
     Slot0Configs slot0 = armConfig.Slot0;
     slot0.kP = 1.92;
@@ -49,11 +49,12 @@ public class Arm extends SubsystemBase {
     slot0.kD = 0.0;
     slot0.kV = 0.0;
     slot0.kS = 0.375; // Approximately 0.375V to get the mechanism moving
-    
-    
+     
 
-    mArmMotor.setNeutralMode(NeutralModeValue.Brake);
-    mArmMotor.getConfigurator().apply(new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive));
+    armConfig.MotorOutput.withNeutralMode(NeutralModeValue.Brake);
+    armConfig.MotorOutput.withInverted(InvertedValue.Clockwise_Positive);
+    mArmMotor.getConfigurator().apply(armConfig);
+    armSetPosition(0.0);
   }
 
 
@@ -77,7 +78,10 @@ public class Arm extends SubsystemBase {
     return mArmMotor.getPosition().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;
   }
   public void updateEncoderPosition(){
-    armSetPosition(mArmCANcoder.getPosition().getValueAsDouble() - Constants.ArmClass.ARMCANCODEROFFSET);
+    if(mArmCANcoder.isConnected())
+    {
+      armSetPosition(mArmCANcoder.getPosition().getValueAsDouble() - Constants.ArmClass.ARMCANCODEROFFSET);
+    }
   }
   public double getArmVelocity(){
     return mArmMotor.getVelocity().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;

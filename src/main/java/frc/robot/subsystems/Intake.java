@@ -12,7 +12,9 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   private TalonFX mIntakeMotor = new TalonFX(Constants.IntakeClass.INTAKEID, Constants.CANIVORE_NAME);
-  public Intake() {}
+public Intake() {
+  
+}
 public void powerOn(){
   mIntakeMotor.set(1.0);
 }

@@ -10,14 +10,15 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.AlgaeIntake_Wrist;
+import frc.robot.subsystems.Wrist;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AlgaeWrist_Manual extends Command {
-  private AlgaeIntake_Wrist mAlgaeWrist;
+public class Wrist_Command extends Command {
+  private Wrist mCoralWrist;
   private DoubleSupplier m_joystickSupplier;
-  public AlgaeWrist_Manual(AlgaeIntake_Wrist algaeWrist, DoubleSupplier joystickSupplier) { 
-    this.mAlgaeWrist = algaeWrist;
-    addRequirements(mAlgaeWrist);
+  public Wrist_Command(Wrist coralWrist, DoubleSupplier joystickSupplier) { 
+    this.mCoralWrist = coralWrist;
+    addRequirements(mCoralWrist);
     m_joystickSupplier = joystickSupplier;
   }
 
@@ -29,13 +30,13 @@ public class AlgaeWrist_Manual extends Command {
   @Override
   public void execute() {
     double joyStickFixed = MathUtil.applyDeadband(m_joystickSupplier.getAsDouble(), Constants.stickDeadband);
-    mAlgaeWrist.onPercent(joyStickFixed);
+    mCoralWrist.WristSetSpeed(joyStickFixed * 0.35);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mAlgaeWrist.off();
+    mCoralWrist.WristSetSpeed(0.0);
   }
 
   // Returns true when the command should end.

@@ -59,7 +59,7 @@ public class ArmGoToPositionCommand extends Command {
       armTarget = Constants.ArmClass.ARM_HOME;
       break;
    }
-
+   mArm.ArmToPostion(armTarget);
   }
 
   // Called once the command ends or is interrupted.
