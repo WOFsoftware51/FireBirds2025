@@ -17,10 +17,10 @@ public final class Constants {
     public static final double stickDeadband = 0.1;
     public static final String CANIVORE_NAME = "CANivore";
 
-    public static final int X_BUTTON = 1;
-    public static final int A_BUTTON = 2;
-    public static final int B_BUTTON = 3;
-    public static final int Y_BUTTON = 4;
+    public static final int Level_1 = 1;
+    public static final int Level_2 = 2;
+    public static final int Level_3 = 3;
+    public static final int Level_4 = 4;
 
     public static final class CoralScorerClass {
         public static final int CORALSCORERID = 3;

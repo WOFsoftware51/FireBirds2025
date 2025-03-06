@@ -35,7 +35,7 @@ public class ArmGoToPositionCommand extends Command {
     //   armTarget = Constants.ArmClass.ARM_LVL1_POSITION;
     //   break;
 
-    case Constants.A_BUTTON: 
+    case Constants.Level_1: 
       armTarget = Constants.ArmClass.ARM_LVL1_SCORE;
       break;
     
@@ -43,15 +43,19 @@ public class ArmGoToPositionCommand extends Command {
     //   armTarget = Constants.ArmClass.ARM_LVL2_POSITION;
     //   break;
     
-    case Constants.B_BUTTON: 
+    case Constants.Level_2: 
       armTarget = Constants.ArmClass.ARM_LVL2_SCORE;
       break;
+      
+      case Constants.Level_3: 
+        armTarget = Constants.ArmClass.ARM_LVL3_SCORE;
+        break;
 
-    case Constants.X_BUTTON: 
+        case Constants.HUMAN_PLAYER: 
       armTarget = Constants.ArmClass.ARM_HP_INTAKE;
       break;
 
-    case Constants.Y_BUTTON: 
+    case Constants.HOME: 
       armTarget = Constants.ArmClass.ARM_HOME;
       break;
 

@@ -78,27 +78,31 @@ public class RobotContainer {
         operator.back().whileTrue(Commands.runOnce(()-> m_Wrist.wristSetPosition(0)));
         operator.back().whileTrue(Commands.runOnce(()-> m_AlgaeIntake_Wrist.setPosition(0)));
         operator.back().whileTrue(Commands.runOnce(()-> m_Arm.armSetPosition(0)));
-
-        operator.start().whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, 2));
-
-        driver.rightTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
-        driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
+        
         // driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralOnSlow()).finallyDo(()-> m_CoralScorer.coralOff()));
         // driver.rightBumper().whileTrue(Commands.run(()->{Global_Variables.isBoost = true;}).finallyDo(()->{Global_Variables.isBoost = false;}));
+      
+        /*Driver O */
+        driver.rightBumper().whileTrue(new Right_Bumper_Slow());
+        driver.leftTrigger(0.8).whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, 2));
+        driver.leftBumper().whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
+        driver.rightTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
         
+        /*Operator O */
         /**Scoring*/
         operator.rightTrigger(0.8).whileTrue(new AlgaeIntakeCommand(m_AlgaeIntake));
-        operator.leftTrigger(0.8).whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
         operator.rightBumper().whileTrue(new IntakeForward(m_Intake));
         operator.leftBumper().whileTrue(new IntakeReverse(m_Intake));
 
-        operator.a().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.A_BUTTON));
+        driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
+        
+        operator.a().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Level_2));
         // operator.a().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.A_BUTTON));
-        operator.b().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.B_BUTTON));
+        operator.b().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Level_3));
         // operator.b().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.B_BUTTON));
-        operator.x().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.X_BUTTON));
+        operator.x().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.HUMAN_PLAYER));
         // operator.x().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.X_BUTTON));
-        operator.y().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Y_BUTTON));
+        operator.y().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Level_1));
         // operator.y().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.Y_BUTTON));
     }
 
