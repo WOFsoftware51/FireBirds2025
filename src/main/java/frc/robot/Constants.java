@@ -38,15 +38,14 @@ public final class Constants {
     public static final class ArmClass {
         public static final int ARMID = 4;
         public static final int ARMCANCODERID = 7;
-        public static final int ARMCANCODEROFFSET = 0;
+        public static final double ARMCANCODEROFFSET = 11.425781;
         public static final double ARM_GEAR_RATIO = 100.0;
 
         public static final double ARM_LVL1_POSITION = 0.0;
-        public static final double ARM_LVL1_SCORE = -50.0;
-        public static final double ARM_LVL2_POSITION = 0.0;
-        public static final double ARM_LVL2_SCORE = 0.0;
+        public static final double ARM_LVL1_SCORE = -84.0;
+        public static final double ARM_LVL2_SCORE = -65.0;
         public static final double ARM_HP_INTAKE = 0.0;
-        public static final double ARM_HOME = 0.0;
+        public static final double ARM_HOME = -20.0;
         
     }
    
@@ -57,13 +56,12 @@ public final class Constants {
         public static final int WRISTID = 6;
         public static final int WRISTCANCODERID = 8;
         public static final int WRISTCANCODEROFFSET = 0;
-        public static final double WRIST_GEAR_RATIO = 100.0;
+        public static final double WRIST_GEAR_RATIO = 32.0;
 
         public static final double WRIST_LVL1_POSITION = 0.0;
-        public static final double WRIST_LVL1_SCORE = 0.0;
-        public static final double WRIST_LVL2_POSITION = 0.0;
-        public static final double WRIST_LVL2_SCORE = 0.0;
-        public static final double WRIST_HP_INTAKE = 0.0;
+        public static final double WRIST_LVL1_SCORE = 3.88;
+        public static final double WRIST_LVL2_SCORE = 55.0;
+        public static final double WRIST_HP_INTAKE = 133.0;
         public static final double WRIST_HOME = 0.0;
         
     }

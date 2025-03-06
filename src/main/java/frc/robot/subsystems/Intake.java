@@ -19,7 +19,7 @@ public void powerOn(){
   mIntakeMotor.set(1.0);
 }
 public void reverse(){
-  mIntakeMotor.set(-1.0);
+  mIntakeMotor.set(-0.20);
 }
 public void powerOff(){
   mIntakeMotor.set(0);

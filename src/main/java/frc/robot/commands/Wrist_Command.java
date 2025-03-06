@@ -30,7 +30,7 @@ public class Wrist_Command extends Command {
   @Override
   public void execute() {
     double joyStickFixed = MathUtil.applyDeadband(m_joystickSupplier.getAsDouble(), Constants.stickDeadband);
-    mCoralWrist.WristSetSpeed(joyStickFixed * 0.35);
+    mCoralWrist.WristSetSpeed(joyStickFixed * 0.20);
   }
 
   // Called once the command ends or is interrupted.
