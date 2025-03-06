@@ -6,6 +6,8 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -28,7 +30,8 @@ public class RobotContainer {
     private final CommandXboxController operator = new CommandXboxController(1);
     private final CommandXboxController TestController = new CommandXboxController(2);
     
-
+    private SendableChooser<Double> wristPostionChooser = new SendableChooser<>(); 
+    private SendableChooser<Double> armPostionChooser = new SendableChooser<>();  
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -64,6 +67,8 @@ public class RobotContainer {
         m_Arm.setDefaultCommand(new Arm_Command(m_Arm, ()-> TestController.getRightY()));
         // Configure the button bindings
         configureButtonBindings();
+        print();
+
     } 
 
     /**
@@ -93,15 +98,35 @@ public class RobotContainer {
         operator.leftBumper().whileTrue(new IntakeReverse(m_Intake));
 
         operator.a().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.A_BUTTON));
-        // operator.a().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.A_BUTTON));
+        operator.a().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.A_BUTTON));
         operator.b().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.B_BUTTON));
-        // operator.b().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.B_BUTTON));
+        operator.b().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.B_BUTTON));
         operator.x().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.X_BUTTON));
-        // operator.x().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.X_BUTTON));
+        operator.x().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.X_BUTTON));
         operator.y().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Y_BUTTON));
-        // operator.y().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.Y_BUTTON));
+        operator.y().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.Y_BUTTON));
+    }
+    private void print(){
+        SmartDashboard.putData("Wrist Position", wristPostionChooser);
+        wristPostionChooser.addOption("180 W Degrees",  180.0);
+        wristPostionChooser.addOption("90 W Degrees",  90.0);
+        wristPostionChooser.addOption("45 W Degrees",  45.0);
+        wristPostionChooser.setDefaultOption("0 W Degrees",  0.0);
+        wristPostionChooser.addOption("-180 W Degrees",  -180.0);
+        wristPostionChooser.addOption("-90 W Degrees",  -90.0);
+        wristPostionChooser.addOption("-45 W Degrees",  -45.0);
+
+        SmartDashboard.putData("Arm Position", armPostionChooser);
+        // armPostionChooser.addOption("180 Arm Degrees",  360.0);
+        // armPostionChooser.addOption("180 Arm Degrees",  270.0);
+        armPostionChooser.addOption("180 Arm Degrees",  180.0);
+        armPostionChooser.addOption("90 Arm Degrees",  90.0);
+        armPostionChooser.setDefaultOption("0 Arm Degrees",  0.0);
+        armPostionChooser.setDefaultOption("-90 Arm Degrees",  -90.0);
+        armPostionChooser.setDefaultOption("-180 Arm Degrees",  -180.0);
     }
 
+    
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *

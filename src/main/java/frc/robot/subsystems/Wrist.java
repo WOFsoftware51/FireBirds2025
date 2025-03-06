@@ -36,12 +36,12 @@ public class Wrist extends SubsystemBase {
     TalonFXConfiguration wristConfig = new TalonFXConfiguration();
     MotionMagicConfigs wristMotionMagic = wristConfig.MotionMagic;
     
-    wristMotionMagic.MotionMagicCruiseVelocity = 600; //400// 5 rotations per second cruise
+    wristMotionMagic.MotionMagicCruiseVelocity = 30; //400// 5 rotations per second cruise
     wristMotionMagic.MotionMagicAcceleration = 300; //160 // Take approximately 0.5 seconds %to reach max vel
-    wristMotionMagic.MotionMagicJerk = 2400;//1600// Take approximately 0.2 seconds to reach max accel 
-    wristConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
+    wristMotionMagic.MotionMagicJerk = 0.0;//1600// Take approximately 0.2 seconds to reach max accel 
+    wristConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = false;
     wristConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = -90*Constants.WristClass.WRIST_GEAR_RATIO/360;
-    wristConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
+    wristConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = false;
     wristConfig.SoftwareLimitSwitch.ForwardSoftLimitThreshold = 90*Constants.WristClass.WRIST_GEAR_RATIO/360;
     
     Slot0Configs slot0 = wristConfig.Slot0;
@@ -63,25 +63,27 @@ public class Wrist extends SubsystemBase {
   }
   public void WristToPostion(double target) {
     m_target = target;
-    mWristMotor.setControl(wristMotionMagic.withPosition(target));
+    mWristMotor.setControl(wristMotionMagic.withPosition(target * Constants.WristClass.WRIST_GEAR_RATIO / 360.0));
   }
   public void wristSetPosition(double newPosition){
-    mWristMotor.setPosition(newPosition * Constants.ArmClass.ARM_GEAR_RATIO / 360);
+    mWristMotor.setPosition(newPosition * Constants.WristClass.WRIST_GEAR_RATIO / 360.0);
   }
   public void updateEncoderPosition(){
     if(mWristCANcoder.isConnected())
       wristSetPosition(mWristCANcoder.getPosition().getValueAsDouble() - Constants.WristClass.WRISTCANCODEROFFSET);
+    else
+      wristSetPosition(0.0);
   }
     //wristOnPercent
   public void wristActive(double speed ){
     mWristMotor.set(speed); 
   }
   public double getWristPosition(){
-    return mWristMotor.getPosition().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;
+    return mWristMotor.getPosition().getValueAsDouble()*360/Constants.WristClass.WRIST_GEAR_RATIO;
   }
 
   public double getWristVelocity(){
-    return mWristMotor.getVelocity().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;
+    return mWristMotor.getVelocity().getValueAsDouble()*360/Constants.WristClass.WRIST_GEAR_RATIO;
   }
 
   @Override

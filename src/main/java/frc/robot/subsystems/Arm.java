@@ -23,7 +23,7 @@ import frc.robot.Constants;
 public class Arm extends SubsystemBase {
   /** Creates a new Coral_Reef_Arm_Claw_Thing. */
   private TalonFX mArmMotor = new TalonFX(Constants.ArmClass.ARMID, Constants.CANIVORE_NAME);
-  private CANcoder mArmCANcoder = new CANcoder(Constants.ArmClass.ARMCANCODERID);
+  private CANcoder mArmCANcoder = new CANcoder(Constants.ArmClass.ARMCANCODERID, Constants.CANIVORE_NAME);
 
   
   private TalonFXConfiguration armConfig = new TalonFXConfiguration();
@@ -35,9 +35,9 @@ public class Arm extends SubsystemBase {
   public Arm() {
     mArmMotor.getConfigurator().apply(new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive));
     MotionMagicConfigs armMotionMagic = armConfig.MotionMagic;
-    armMotionMagic.MotionMagicCruiseVelocity = 600; //400// 5 rotations per second cruise
-    armMotionMagic.MotionMagicAcceleration = 300; //160 // Take approximately 0.5 seconds %to reach max vel
-    armMotionMagic.MotionMagicJerk = 2400;//1600// Take approximately 0.2 seconds to reach max accel 
+    armMotionMagic.MotionMagicCruiseVelocity = 20; //400// 5 rotations per second cruise
+    armMotionMagic.MotionMagicAcceleration = 60; //160 // Take approximately 0.5 seconds %to reach max vel
+    armMotionMagic.MotionMagicJerk = 0.0;//1600// Take approximately 0.2 seconds to reach max accel 
     armConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
     armConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = -97.0*Constants.ArmClass.ARM_GEAR_RATIO/360;
     armConfig.SoftwareLimitSwitch.ForwardSoftLimitEnable = true;
@@ -54,7 +54,7 @@ public class Arm extends SubsystemBase {
     armConfig.MotorOutput.withNeutralMode(NeutralModeValue.Brake);
     armConfig.MotorOutput.withInverted(InvertedValue.Clockwise_Positive);
     mArmMotor.getConfigurator().apply(armConfig);
-    armSetPosition(0.0);
+    updateEncoderPosition();
   }
 
 
@@ -63,7 +63,7 @@ public class Arm extends SubsystemBase {
   }
   public void ArmToPostion(double target) {
     m_target = target;
-    mArmMotor.setControl(armMotionMagic.withPosition(target));
+    mArmMotor.setControl(armMotionMagic.withPosition(target * Constants.ArmClass.ARM_GEAR_RATIO/360));
   }
   public void armActive(double speed ){
     mArmMotor.set(speed); 
@@ -78,10 +78,7 @@ public class Arm extends SubsystemBase {
     return mArmMotor.getPosition().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;
   }
   public void updateEncoderPosition(){
-    if(mArmCANcoder.isConnected())
-    {
-      armSetPosition(mArmCANcoder.getPosition().getValueAsDouble() - Constants.ArmClass.ARMCANCODEROFFSET);
-    }
+      armSetPosition(mArmCANcoder.getPosition().getValueAsDouble() * 360 - Constants.ArmClass.ARMCANCODEROFFSET);
   }
   public double getArmVelocity(){
     return mArmMotor.getVelocity().getValueAsDouble()*360/Constants.ArmClass.ARM_GEAR_RATIO;
@@ -93,6 +90,7 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("Arm Position", getArmPosition());
     SmartDashboard.putNumber("Arm Speed", getArmVelocity());
     SmartDashboard.putNumber("Arm Target Position", m_target);
+    SmartDashboard.putNumber("ARM Cancoder Position", mArmCANcoder.getAbsolutePosition().getValueAsDouble() * 360);
   }
 }
 
