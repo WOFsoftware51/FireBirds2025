@@ -42,6 +42,10 @@ public class TeleopSwerve extends Command {
         {
             speedModifier = 1.0;
         }
+        else if (Global_Variables.right_Bumper_Slow)
+        {
+            speedModifier = 0.3;
+        }
         else
         {
             speedModifier = Constants.Swerve.DRIVE_SPEED;
@@ -50,7 +54,7 @@ public class TeleopSwerve extends Command {
         /* Drive */
         s_Swerve.drive(
             new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed).times(speedModifier), 
-            rotationVal * Constants.Swerve.maxAngularVelocity, 
+            rotationVal * Constants.Swerve.maxAngularVelocity*speedModifier, 
             !robotCentricSup.getAsBoolean(), 
             true
         );

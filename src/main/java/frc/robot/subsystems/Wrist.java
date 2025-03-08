@@ -85,7 +85,9 @@ public class Wrist extends SubsystemBase {
   public double getWristVelocity(){
     return mWristMotor.getVelocity().getValueAsDouble()*360/Constants.WristClass.WRIST_GEAR_RATIO;
   }
-
+public void wristOff(){
+    mWristMotor.set(0);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

@@ -13,11 +13,11 @@ import frc.robot.subsystems.Arm;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class Arm_Command extends Command {
-  private Arm mArm;
+  private Arm m_Arm;
   private DoubleSupplier m_joystickSupplier;
-  public Arm_Command(Arm Arm, DoubleSupplier joystickSupplier) { 
-    this.mArm = Arm;
-    addRequirements(mArm);
+  public Arm_Command(Arm arm, DoubleSupplier joystickSupplier) {
+    this.m_Arm = arm;
+    addRequirements(m_Arm);
     m_joystickSupplier = joystickSupplier;
   }
 
@@ -28,14 +28,14 @@ public class Arm_Command extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double joyStickFixed = MathUtil.applyDeadband(m_joystickSupplier.getAsDouble(), Constants.stickDeadband);
-    mArm.ArmSetSpeed(joyStickFixed * 0.5);
+    double joyStick = MathUtil.applyDeadband(m_joystickSupplier.getAsDouble() * 0.75, Constants.stickDeadband);
+    m_Arm.armActive(joyStick);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mArm.ArmSetSpeed(0.0);
+    m_Arm.armOff();
   }
 
   // Returns true when the command should end.

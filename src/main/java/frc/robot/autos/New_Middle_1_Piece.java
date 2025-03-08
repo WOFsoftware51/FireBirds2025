@@ -20,7 +20,7 @@ public class New_Middle_1_Piece extends SequentialCommandGroup {
         addCommands(
             C_R0.resetOdometryToStart(),
             C_R0.follow(),
-           Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.B_BUTTON)
+           Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.Level_1)
 
             );
     }

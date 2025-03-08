@@ -20,8 +20,12 @@ public final class Constants {
     public static final int Level_1 = 1;
     public static final int Level_2 = 2;
     public static final int Level_3 = 3;
-    public static final int Level_4 = 4;
-
+    public static final int HOME = 4;
+    public static final int HUMAN_PLAYER = 5;
+    public static final int ARM_HIGH_ALGAE_LVL3 = 6;
+    public static final int WRIST_HIGH_ALGAE_LVL3 = 7;
+    public static final int ALGAE_GO_WRONG = 8;
+    
     public static final class CoralScorerClass {
         public static final int CORALSCORERID = 3;
     }
@@ -29,11 +33,11 @@ public final class Constants {
     public static final class AlgaeIntakeClass {
         public static final int ALGAEINTAKEID = 1;
         public static final int ALGAEWRISTID = 2;
-        public static final double ALGAE_INTAKE_POSITION = 55.0;
+        public static final double ALGAE_INTAKE_POSITION = -55.0;
         public static final double ALGAE_INTAKE_HOME = 0.0;
-        public static final double ALGAE_INTAKE_GEAR_RATIO = 0.0;
+        public static final double ALGAE_INTAKE_GEAR_RATIO = 100.0;
         public static final double ALGAEINTAKECANCODERID = 3;
-
+        public static final double ALGAE_LIMIT_SWITCH = 55.0;
     }
     public static final class ArmClass {
         public static final int ARMID = 4;
@@ -41,28 +45,36 @@ public final class Constants {
         public static final double ARMCANCODEROFFSET = 11.425781;
         public static final double ARM_GEAR_RATIO = 100.0;
 
-        public static final double ARM_LVL1_POSITION = 0.0;
-        public static final double ARM_LVL1_SCORE = -84.0;
-        public static final double ARM_LVL2_SCORE = -65.0;
+        public static final double ARM_LVL1_SCORE = -84.0;//-84.0;
+        public static final double ARM_LVL2_SCORE = -105;//-84.0;
+        public static final double ARM_LVL3_SCORE = -70;//-65.0;
         public static final double ARM_HP_INTAKE = 0.0;
-        public static final double ARM_HOME = -20.0;
+        public static final double ARM_HOME = -4.0;
+        public static final double ARM_HIGH_ALGAE_LVL3 = -105.0;
         
     }
    
     public static final class IntakeClass {
         public static final int INTAKEID = 5;
     }
-    public static final class WristClass {
+    public static final class WristClass {  
         public static final int WRISTID = 6;
         public static final int WRISTCANCODERID = 8;
         public static final int WRISTCANCODEROFFSET = 0;
         public static final double WRIST_GEAR_RATIO = 32.0;
 
-        public static final double WRIST_LVL1_POSITION = 0.0;
-        public static final double WRIST_LVL1_SCORE = 3.88;
-        public static final double WRIST_LVL2_SCORE = 55.0;
+        public static final double WRIST_LVL2_SCORE = 52.0;//6.0;
+        public static final double WRIST_LVL3_SCORE = 55.0;// 55.0;
         public static final double WRIST_HP_INTAKE = 133.0;
-        public static final double WRIST_HOME = 0.0;
+        public static final double WRIST_HOME = 80.0; /// 68.19
+        public static final double WRIST_HIGH_ALGAE_LVL3 = 85.0;
+    }
+    public static final class BlinkinClass {
+        public static final double BLINKIN_PURPLE = 0.0;
+        public static final double BLINKIN_WHITE = 1;
+        public static final double BLINKIN_TEAL = 2;
+        public static final double BLINKIN_ORANGE = 3;
+
         
     }
     public static final class Swerve {

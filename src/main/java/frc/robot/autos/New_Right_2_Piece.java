@@ -18,10 +18,11 @@ public class New_Right_2_Piece extends SequentialCommandGroup {
         addCommands(
             R_R1.resetOdometryToStart(),
             R_R1.follow(),
-            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.B_BUTTON),
+            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.Level_1),
             R1_HPR.follow(),
             Auton_Functions.autonIntakeTop(intake),
             HPR_R2.follow(),
-            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.B_BUTTON));
+            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.Level_1)
+            );
     }
 }

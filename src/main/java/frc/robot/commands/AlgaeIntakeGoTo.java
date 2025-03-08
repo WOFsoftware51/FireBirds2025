@@ -40,19 +40,28 @@ public class AlgaeIntakeGoTo extends Command {
   @Override
   public void execute() {
     switch (m_button) {
-      case 1: 
+      case Constants.HOME:
         algaeIntakeTarget = Constants.AlgaeIntakeClass.ALGAE_INTAKE_HOME;
         break;
    
-      case Constants.A_BUTTON:
+      case Constants.Level_1:
         algaeIntakeTarget = Constants.AlgaeIntakeClass.ALGAE_INTAKE_POSITION;
         break;
+        case Constants.ALGAE_GO_WRONG:
+        algaeIntakeTarget = Constants.AlgaeIntakeClass.ALGAE_LIMIT_SWITCH;
+        break;
+      default:
+      algaeIntakeTarget = Constants.AlgaeIntakeClass.ALGAE_INTAKE_HOME;
+      break;
     }
    m_algaeIntake.goToPosition(algaeIntakeTarget);
   }
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) 
+  {
+    m_algaeIntake.off();
+  }
 
   // Returns true when the command should end.
   @Override

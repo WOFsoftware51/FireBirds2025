@@ -18,7 +18,7 @@ public class New_Left_1_Piece extends SequentialCommandGroup {
         addCommands(
             L_R5.resetOdometryToStart(),
             L_R5.follow(),
-Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.B_BUTTON)
-);
+            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.Level_2)
+        );
     }
 }

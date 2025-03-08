@@ -9,16 +9,15 @@ import java.util.function.DoubleSupplier;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.AlgaeIntake_Wrist;
 import frc.robot.subsystems.Wrist;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class Wrist_Command extends Command {
-  private Wrist mCoralWrist;
+class Wrist_Manual extends Command {
+  private Wrist mWrist;
   private DoubleSupplier m_joystickSupplier;
-  public Wrist_Command(Wrist coralWrist, DoubleSupplier joystickSupplier) { 
-    this.mCoralWrist = coralWrist;
-    addRequirements(mCoralWrist);
+  public Wrist_Manual(Wrist wrist, DoubleSupplier joystickSupplier) { 
+    this.mWrist = wrist;
+    addRequirements(mWrist);
     m_joystickSupplier = joystickSupplier;
   }
 
@@ -30,13 +29,13 @@ public class Wrist_Command extends Command {
   @Override
   public void execute() {
     double joyStickFixed = MathUtil.applyDeadband(m_joystickSupplier.getAsDouble(), Constants.stickDeadband);
-    mCoralWrist.WristSetSpeed(joyStickFixed * -0.20);
+    mWrist.wristActive(joyStickFixed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mCoralWrist.WristSetSpeed(0.0);
+    mWrist.wristOff();
   }
 
   // Returns true when the command should end.

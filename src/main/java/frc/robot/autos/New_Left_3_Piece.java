@@ -19,14 +19,14 @@ public class New_Left_3_Piece extends SequentialCommandGroup {
         addCommands(
             L_R5.resetOdometryToStart(),
             L_R5.follow(),
-            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.B_BUTTON),
+            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.Level_1),
             R5_HPL.follow(),
             Auton_Functions.autonIntakeTop(intake),
             HPL_R4.follow(),
-            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.B_BUTTON),
+            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.Level_1),
             R4_HPL.follow(),
             Auton_Functions.autonIntakeTop(intake),
             HPL_R4.follow(),
-            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.B_BUTTON) );
+            Auton_Functions.autonScoreTop(intake, wrist, arm, Constants.Level_1) );
     }
 }

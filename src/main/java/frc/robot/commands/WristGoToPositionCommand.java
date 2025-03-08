@@ -32,26 +32,29 @@ public class WristGoToPositionCommand extends Command {
    // case 1: 
      // wristTarget = Constants.WristClass.WRIST_LVL1_POSITION;
     //  break;
-
-    case Constants.A_BUTTON:
-      wristTarget = Constants.WristClass.WRIST_LVL1_SCORE;
-      break;
    
     //  case 3: 
     //  wristTarget = Constants.WristClass.WRIST_LVL2_POSITION;
     //  break;
       
-    case Constants.B_BUTTON: 
+    case Constants.Level_2: 
       wristTarget = Constants.WristClass.WRIST_LVL2_SCORE;
       break;
       
-    case Constants.X_BUTTON:
+    case Constants.Level_3: 
+        wristTarget = Constants.WristClass.WRIST_LVL3_SCORE;
+        break;
+        case Constants.HUMAN_PLAYER:
       wristTarget = Constants.WristClass.WRIST_HP_INTAKE;
       break;
 
-    case Constants.Y_BUTTON:
+    case Constants.HOME:
       wristTarget = Constants.WristClass.WRIST_HOME;
       break;
+      case Constants.WRIST_HIGH_ALGAE_LVL3: 
+      wristTarget = Constants.WristClass.WRIST_HIGH_ALGAE_LVL3;
+      break;
+
 
     default:
       wristTarget = Constants.WristClass.WRIST_HOME;
@@ -64,7 +67,9 @@ public class WristGoToPositionCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    mWrist.wristOff();
+  }
 
   // Returns true when the command should end.
   @Override

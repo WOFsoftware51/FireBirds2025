@@ -48,16 +48,20 @@ public class ArmGoToPositionCommand extends Command {
       armTarget = Constants.ArmClass.ARM_LVL2_SCORE;
       break;
       
-      case Constants.Level_3: 
-        armTarget = Constants.ArmClass.ARM_LVL3_SCORE;
-        break;
+    case Constants.Level_3: 
+      armTarget = Constants.ArmClass.ARM_LVL3_SCORE;
+      break;
 
-        case Constants.HUMAN_PLAYER: 
+    case Constants.HUMAN_PLAYER: 
       armTarget = Constants.ArmClass.ARM_HP_INTAKE;
       break;
 
     case Constants.HOME: 
       armTarget = Constants.ArmClass.ARM_HOME;
+      break;
+    
+      case Constants.ARM_HIGH_ALGAE_LVL3: 
+      armTarget = Constants.ArmClass.ARM_HIGH_ALGAE_LVL3;
       break;
 
     default:

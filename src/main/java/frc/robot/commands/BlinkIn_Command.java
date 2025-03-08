@@ -4,23 +4,19 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.AlgaeIntake_Wrist;
+import frc.robot.subsystems.BlinkIn;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AlgaeWrist_Manual extends Command {
-  private AlgaeIntake_Wrist mAlgaeWrist;
-  private DoubleSupplier m_joystickSupplier;
-  public AlgaeWrist_Manual(AlgaeIntake_Wrist algaeWrist, DoubleSupplier joystickSupplier) { 
-    this.mAlgaeWrist = algaeWrist;
-    addRequirements(mAlgaeWrist);
-    m_joystickSupplier = joystickSupplier;
+public class BlinkIn_Command extends Command {
+  /** Creates a new BlinkIn_Command. */
+  private BlinkIn mBlinkIn;
+  private int m_button;
+  public BlinkIn_Command(BlinkIn blinkIn) { 
+    this.mBlinkIn = blinkIn;
+    addRequirements(mBlinkIn);
   }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -28,14 +24,14 @@ public class AlgaeWrist_Manual extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double joyStickFixed = MathUtil.applyDeadband(m_joystickSupplier.getAsDouble(), Constants.stickDeadband);
-    mAlgaeWrist.onPercent(joyStickFixed);
+    mBlinkIn.on();
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    mAlgaeWrist.off();
+    mBlinkIn.off();
   }
 
   // Returns true when the command should end.

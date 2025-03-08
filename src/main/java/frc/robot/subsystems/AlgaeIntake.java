@@ -9,6 +9,7 @@ import java.lang.constant.Constable;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -32,9 +33,16 @@ public class AlgaeIntake extends SubsystemBase {
   public void onPercent(double speed){
     mAlgaeIntake.set(speed);
   }
-
-  @Override
+  public double getVelocityRPS(){
+    return mAlgaeIntake.getVelocity().getValueAsDouble();
+  }
+public double getCurrent(){
+  return mAlgaeIntake.getStatorCurrent().getValueAsDouble();
+}
+  
+@Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Top Intake Speed RPS", getVelocityRPS());
+    SmartDashboard.putNumber("Top Intake CURRENT AMPS", getCurrent());
   }
 }

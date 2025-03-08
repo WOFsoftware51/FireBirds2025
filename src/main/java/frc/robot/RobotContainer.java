@@ -1,22 +1,22 @@
 package frc.robot;
 
+import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import pabeles.concurrency.IntOperatorTask.Min;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,8 +30,7 @@ public class RobotContainer {
     private final CommandXboxController operator = new CommandXboxController(1);
     private final CommandXboxController TestController = new CommandXboxController(2);
     
-    private SendableChooser<Double> wristPostionChooser = new SendableChooser<>(); 
-    private SendableChooser<Double> armPostionChooser = new SendableChooser<>();  
+
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -59,16 +58,16 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(translationAxis), 
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
-                () -> robotCentric.getAsBoolean()
+                () -> false
             )
         );
-        m_AlgaeIntake_Wrist.setDefaultCommand(new AlgaeWrist_Manual(m_AlgaeIntake_Wrist, ()-> operator.getLeftY()));
-        m_Wrist.setDefaultCommand(new Wrist_Command(m_Wrist, ()-> operator.getRightY()));
-        m_Arm.setDefaultCommand(new Arm_Command(m_Arm, ()-> TestController.getRightY()));
+        m_Wrist.setDefaultCommand(new Wrist_Command(m_Wrist, ()-> operator.getLeftY()));
+        m_AlgaeIntake_Wrist.setDefaultCommand(new AlgaeWrist_Manual(m_AlgaeIntake_Wrist, ()-> TestController.getRightY()));
+        m_Arm.setDefaultCommand(new Arm_Command(m_Arm, ()-> operator.getRightY()));
+        m_Intake.setDefaultCommand(new IntakeDefaultCommand(m_Intake));
+            
         // Configure the button bindings
         configureButtonBindings();
-        print();
-
     } 
 
     /**
@@ -85,33 +84,39 @@ public class RobotContainer {
         operator.back().whileTrue(Commands.runOnce(()-> m_Arm.armSetPosition(0)));
         
         // driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralOnSlow()).finallyDo(()-> m_CoralScorer.coralOff()));
-        // driver.rightBumper().whileTrue(Commands.run(()->{Global_Variables.isBoost = true;}).finallyDo(()->{Global_Variables.isBoost = false;}));
+        // driver.rightBumper().whileTrue(Commands.run(()->{Global_sVariables.isBoost = true;}).finallyDo(()->{Global_Variables.isBoost = false;}));
       
         /*Driver O */
-        driver.rightBumper().whileTrue(new Right_Bumper_Slow());
-        driver.leftTrigger(0.8).whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, 2));
-        driver.leftBumper().whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
-        driver.rightTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
-        
-        /*Operator O */
-        /**Scoring*/
-        operator.rightTrigger(0.8).whileTrue(new AlgaeIntakeCommand(m_AlgaeIntake));
-        operator.rightBumper().whileTrue(new IntakeForward(m_Intake));
-        operator.leftBumper().whileTrue(new IntakeReverse(m_Intake));
+        driver.rightBumper().whileTrue(new AlgaeWrist_Manual (m_AlgaeIntake_Wrist, ()-> -0.25));
+        driver.leftBumper().whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, Constants.HOME));
+        driver.leftTrigger(0.8).whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, Constants.Level_1));
+        driver.leftTrigger(0.8).whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
+        // driver.leftBumper().whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
+        driver.x().whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, Constants.ALGAE_GO_WRONG));
+        operator.leftTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
+        operator.rightTrigger(0.8).whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.ARM_HIGH_ALGAE_LVL3));
+        operator.rightTrigger(0.8).whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.WRIST_HIGH_ALGAE_LVL3));
 
-        driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
-        
-        operator.a().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Level_2));
-        // operator.a().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.A_BUTTON));
-        operator.b().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Level_3));
-        // operator.b().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.B_BUTTON));
+        /*Operator O */
         operator.x().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.HUMAN_PLAYER));
-        // operator.x().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.X_BUTTON));
-        operator.y().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Level_1));
-        // operator.y().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.Y_BUTTON));
+        operator.x().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.HUMAN_PLAYER));
+        operator.x().whileTrue(new IntakeReverse(m_Intake)); //Intake IN
+
+        /**Scoring*/
+        driver.rightTrigger(0.8).whileTrue(new AlgaeIntakeCommand(m_AlgaeIntake));
+        operator.rightBumper().whileTrue(new IntakeForward(m_Intake)); //INTAKE OUT / SCORE
+        operator.leftBumper().whileTrue(new IntakeReverse(m_Intake)); //Intake INz
+
+        // driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
+        
+        operator.y().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.HOME));
+        operator.y().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.HOME));
+        operator.a().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Level_2));
+        operator.a().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.Level_2));
+        operator.b().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Level_3));
+        operator.b().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.Level_3));
     }
 
-    
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
