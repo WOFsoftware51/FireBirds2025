@@ -21,7 +21,7 @@ public void powerOn(){
   mIntakeMotor.set(0.5);
 }
 public void runSmallVoltage(){
-  mIntakeMotor.setControl(new VoltageOut(0.65));
+  mIntakeMotor.setControl(new VoltageOut(1.3));
 }
 public void reverse(){
   mIntakeMotor.set(-0.20);

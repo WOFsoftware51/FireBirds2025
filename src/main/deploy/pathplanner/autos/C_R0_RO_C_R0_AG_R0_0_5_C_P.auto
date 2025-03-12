@@ -7,7 +7,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": null
+            "pathName": "C_R0"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "R0_C_RO"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "C_R0_AG"
           }
         }
       ]

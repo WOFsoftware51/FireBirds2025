@@ -47,8 +47,11 @@ public class AlgaeIntakeGoTo extends Command {
       case Constants.Level_1:
         algaeIntakeTarget = Constants.AlgaeIntakeClass.ALGAE_INTAKE_POSITION;
         break;
-        case Constants.ALGAE_GO_WRONG:
+      case Constants.ALGAE_GO_WRONG:
         algaeIntakeTarget = Constants.AlgaeIntakeClass.ALGAE_LIMIT_SWITCH;
+        break;
+      case Constants.Level_2:
+        algaeIntakeTarget = Constants.AlgaeIntakeClass.ALGAE_INTAKE_AUTON_POSITION;
         break;
       default:
       algaeIntakeTarget = Constants.AlgaeIntakeClass.ALGAE_INTAKE_HOME;

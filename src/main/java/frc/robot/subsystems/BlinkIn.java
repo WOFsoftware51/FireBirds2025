@@ -18,16 +18,19 @@ public class BlinkIn extends SubsystemBase {
   public void on(){
     BlinkIn.set(0.91);
   }
-  public void onAlternate(){
-    BlinkIn.set(0.93);
+  public void setColor(double color){
+    BlinkIn.set(color);
   }
-
+/* 
   public void onReverse(){
     BlinkIn.set(-0.59);
   }
   public void off(){
     BlinkIn.set(0.0);
   }
+  public void Default(){
+    BlinkIn.set(0.91);
+  } */
   @Override
   public void periodic() {
 

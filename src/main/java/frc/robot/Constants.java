@@ -25,7 +25,10 @@ public final class Constants {
     public static final int ARM_HIGH_ALGAE_LVL3 = 6;
     public static final int WRIST_HIGH_ALGAE_LVL3 = 7;
     public static final int ALGAE_GO_WRONG = 8;
-    
+    public static final String BlinkInClass = null;
+    public static final int WHITE = 9;
+    public static final int DEFAULT_PURPLE = 10;
+
     public static final class CoralScorerClass {
         public static final int CORALSCORERID = 3;
     }
@@ -34,6 +37,7 @@ public final class Constants {
         public static final int ALGAEINTAKEID = 1;
         public static final int ALGAEWRISTID = 2;
         public static final double ALGAE_INTAKE_POSITION = -55.0;
+        public static final double ALGAE_INTAKE_AUTON_POSITION = -25.0;
         public static final double ALGAE_INTAKE_HOME = 0.0;
         public static final double ALGAE_INTAKE_GEAR_RATIO = 100.0;
         public static final double ALGAEINTAKECANCODERID = 3;
@@ -70,10 +74,13 @@ public final class Constants {
         public static final double WRIST_HIGH_ALGAE_LVL3 = 85.0;
     }
     public static final class BlinkinClass {
-        public static final double BLINKIN_PURPLE = 0.0;
-        public static final double BLINKIN_WHITE = 1;
-        public static final double BLINKIN_TEAL = 2;
-        public static final double BLINKIN_ORANGE = 3;
+        public static final double BLINKIN_PURPLE_DEFAULT = 0.91;
+        public static final double BLINKIN_WHITE = -0.05;
+        public static final double BLINKIN_AQUA = 0.81;
+        public static final double BLINKIN_ORANGE = 0.65;
+        public static final double BLINKIN_OCEAN = -0.37;
+        public static final double BLINKIN_WHITE_SLOW = -0.21;
+
 
         
     }
@@ -200,7 +207,7 @@ public final class Constants {
 
     public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot
         public static final double kMaxSpeedMetersPerSecond = 4.73;
-        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 4;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
     

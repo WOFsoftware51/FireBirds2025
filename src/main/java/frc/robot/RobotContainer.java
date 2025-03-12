@@ -7,6 +7,8 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -30,7 +32,7 @@ public class RobotContainer {
     private final CommandXboxController operator = new CommandXboxController(1);
     private final CommandXboxController TestController = new CommandXboxController(2);
     
-
+    private SendableChooser<Integer> m_AutoChooser = new SendableChooser<>();
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -49,9 +51,11 @@ public class RobotContainer {
     private final Arm m_Arm = new Arm();
     private final Wrist m_Wrist = new Wrist();
     private final Intake m_Intake = new Intake();
+    private final BlinkIn m_BlinkIn = new BlinkIn();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+        printAutos();
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
@@ -65,6 +69,7 @@ public class RobotContainer {
         m_AlgaeIntake_Wrist.setDefaultCommand(new AlgaeWrist_Manual(m_AlgaeIntake_Wrist, ()-> TestController.getRightY()));
         m_Arm.setDefaultCommand(new Arm_Command(m_Arm, ()-> operator.getRightY()));
         m_Intake.setDefaultCommand(new IntakeDefaultCommand(m_Intake));
+        m_BlinkIn.setDefaultCommand(new BlinkIn_Command(m_BlinkIn, Constants.BlinkinClass.BLINKIN_PURPLE_DEFAULT));
             
         // Configure the button bindings
         configureButtonBindings();
@@ -92,10 +97,12 @@ public class RobotContainer {
         driver.leftTrigger(0.8).whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, Constants.Level_1));
         driver.leftTrigger(0.8).whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
         // driver.leftBumper().whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
-        driver.x().whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, Constants.ALGAE_GO_WRONG));
+        // driver.x().whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, Constants.ALGAE_GO_WRONG));
         operator.leftTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
         operator.rightTrigger(0.8).whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.ARM_HIGH_ALGAE_LVL3));
         operator.rightTrigger(0.8).whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.WRIST_HIGH_ALGAE_LVL3));
+        operator.leftTrigger(0.8).whileTrue(new BlinkIn_Command(m_BlinkIn, Constants.BlinkinClass.BLINKIN_WHITE));
+        driver.leftTrigger(0.8).whileTrue(new BlinkIn_Command(m_BlinkIn, Constants.BlinkinClass.BLINKIN_OCEAN));
 
         /*Operator O */
         operator.x().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.HUMAN_PLAYER));
@@ -106,15 +113,27 @@ public class RobotContainer {
         driver.rightTrigger(0.8).whileTrue(new AlgaeIntakeCommand(m_AlgaeIntake));
         operator.rightBumper().whileTrue(new IntakeForward(m_Intake)); //INTAKE OUT / SCORE
         operator.leftBumper().whileTrue(new IntakeReverse(m_Intake)); //Intake INz
+        operator.leftBumper().whileTrue(new BlinkIn_Command(m_BlinkIn, Constants.BlinkinClass.BLINKIN_WHITE));
+
 
         // driver.leftTrigger(0.8).whileTrue(Commands.run(()-> m_CoralScorer.coralReverse()).finallyDo(()-> m_CoralScorer.coralOff()));
         
         operator.y().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.HOME));
         operator.y().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.HOME));
+        operator.a().whileTrue(new BlinkIn_Command(m_BlinkIn, Constants.BlinkinClass.BLINKIN_WHITE_SLOW));
         operator.a().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Level_2));
         operator.a().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.Level_2));
+        operator.b().whileTrue(new BlinkIn_Command(m_BlinkIn, Constants.BlinkinClass.BLINKIN_WHITE_SLOW));
         operator.b().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.Level_3));
         operator.b().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.Level_3));
+    }
+    private void printAutos(){
+        SmartDashboard.putData("Auto Chooser", m_AutoChooser);
+        m_AutoChooser.setDefaultOption("DO NOTHING", 0);
+        m_AutoChooser.addOption("Middle 1 Piece", 1);
+        m_AutoChooser.addOption("Path Planner Test", 2);
+        m_AutoChooser.addOption("Algae Middle 1 Piece", 3);
+
     }
 
     /**
@@ -123,7 +142,20 @@ public class RobotContainer {
      * @return the command to run in autonomous
      */
     public Command getAutonomousCommand() {
+        switch (m_AutoChooser.getSelected()) {
+            case 0:
+                return Commands.print("Default Auto");
+            case 1:
+                return new Middle_1_Piece(m_CoralScorer);
+            case 2:
+                return new PathPlanner_Test();
+            case 3:
+                return new Algae_Middle_1_Piece(m_CoralScorer, m_AlgaeIntake_Wrist, m_AlgaeIntake, m_Arm, m_Wrist, m_Intake);
+            default:
+                break;
+        }
         // An ExampleCommand will run in autonomous
         return new PathPlanner_Test();
+       
     }
 }

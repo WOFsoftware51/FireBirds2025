@@ -30,6 +30,9 @@ public class CoralScorer extends SubsystemBase {
   public void coralReverse(){
     mCoralMotor.set(-0.25);
   }
+  public double getSpeed(){
+   return Math.abs(mCoralMotor.getVelocity().getValueAsDouble());
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
