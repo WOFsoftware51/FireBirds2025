@@ -70,7 +70,8 @@ public class RobotContainer {
         m_Arm.setDefaultCommand(new Arm_Command(m_Arm, ()-> operator.getRightY()));
         m_Intake.setDefaultCommand(new IntakeDefaultCommand(m_Intake));
         m_BlinkIn.setDefaultCommand(new BlinkIn_Command(m_BlinkIn, Constants.BlinkinClass.BLINKIN_PURPLE_DEFAULT));
-            
+        m_AlgaeIntake.setDefaultCommand(new HasAlgaeCommand(m_AlgaeIntake));
+
         // Configure the button bindings
         configureButtonBindings();
     } 

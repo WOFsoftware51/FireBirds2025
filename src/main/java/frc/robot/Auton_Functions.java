@@ -34,7 +34,7 @@ public class Auton_Functions {
       finallyDo(()-> intake.reverse());
   }
   public static Command autonGoToPosition(Arm arm, Wrist wrist, int scorePosition){
-    return new ArmGoToPositionCommand(arm,scorePosition).alongWith(new WristGoToPositionCommand(wrist,scorePosition)).raceWith(autonWait(1.5));
+    return new ArmGoToPositionCommand(arm,scorePosition).alongWith(new WristGoToPositionCommand(wrist,scorePosition)).raceWith(autonWait(2.5));
   }
 
 

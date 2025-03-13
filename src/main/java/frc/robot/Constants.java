@@ -69,7 +69,7 @@ public final class Constants {
 
         public static final double WRIST_LVL2_SCORE = 52.0;//6.0;
         public static final double WRIST_LVL3_SCORE = 55.0;// 55.0;
-        public static final double WRIST_HP_INTAKE = 133.0;
+        public static final double WRIST_HP_INTAKE = 117.0;//133.0;
         public static final double WRIST_HOME = 80.0; /// 68.19
         public static final double WRIST_HIGH_ALGAE_LVL3 = 85.0;
     }

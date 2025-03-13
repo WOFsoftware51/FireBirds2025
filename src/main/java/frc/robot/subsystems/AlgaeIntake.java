@@ -6,12 +6,14 @@ package frc.robot.subsystems;
 
 import java.lang.constant.Constable;
 
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Global_Variables;
 
 public class AlgaeIntake extends SubsystemBase {
   private TalonFX mAlgaeIntake = new TalonFX(Constants.AlgaeIntakeClass.ALGAEINTAKEID, Constants.CANIVORE_NAME);
@@ -29,6 +31,7 @@ public class AlgaeIntake extends SubsystemBase {
   }
   public void reverse(){
     mAlgaeIntake.set(-1.0);
+    Global_Variables.hasAlgae = false;
   }
   public void onPercent(double speed){
     mAlgaeIntake.set(speed);
@@ -39,7 +42,9 @@ public class AlgaeIntake extends SubsystemBase {
 public double getCurrent(){
   return mAlgaeIntake.getStatorCurrent().getValueAsDouble();
 }
-  
+  public void runSmallVoltage(){
+  mAlgaeIntake.setControl(new VoltageOut(1.3));
+}
 @Override
   public void periodic() {
     SmartDashboard.putNumber("Top Intake Speed RPS", getVelocityRPS());

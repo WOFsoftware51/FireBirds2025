@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 
@@ -32,6 +33,12 @@ public class CoralScorer extends SubsystemBase {
   }
   public double getSpeed(){
    return Math.abs(mCoralMotor.getVelocity().getValueAsDouble());
+  }
+  public double getCurrent(){
+   return Math.abs(mCoralMotor.getStatorCurrent().getValueAsDouble());
+  }
+  public void runSmallVoltage(){
+    mCoralMotor.setControl(new VoltageOut(1.3));
   }
   @Override
   public void periodic() {
