@@ -46,7 +46,7 @@ public final class Constants {
     public static final class ArmClass {
         public static final int ARMID = 4;
         public static final int ARMCANCODERID = 7;
-        public static final double ARMCANCODEROFFSET = 11.425781;
+        public static final double ARMCANCODEROFFSET = -166.0;
         public static final double ARM_GEAR_RATIO = 100.0;
 
         public static final double ARM_LVL1_SCORE = -84.0;//-84.0;

@@ -134,6 +134,8 @@ public class RobotContainer {
         m_AutoChooser.addOption("Middle 1 Piece", 1);
         m_AutoChooser.addOption("Path Planner Test", 2);
         m_AutoChooser.addOption("Algae Middle 1 Piece", 3);
+        m_AutoChooser.addOption("copy", 4);
+        m_AutoChooser.addOption("Left 5", 5);
 
     }
 
@@ -152,6 +154,10 @@ public class RobotContainer {
                 return new PathPlanner_Test();
             case 3:
                 return new Algae_Middle_1_Piece(m_CoralScorer, m_AlgaeIntake_Wrist, m_AlgaeIntake, m_Arm, m_Wrist, m_Intake);
+            case 4:
+            return new copy(m_CoralScorer);
+            case 5:
+            return new Left_5(m_CoralScorer);
             default:
                 break;
         }

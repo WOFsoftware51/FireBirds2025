@@ -15,13 +15,14 @@ public class Left_5_Piece extends SequentialCommandGroup {
         AutoPath R4_HPL =  AutoPath.PP("R4_HPRL");
         // AutoPath HPL_R4 =  AutoPath.PP("HPL_R4");
         // AutoPath R4_HPL =  AutoPath.PP("R4_HPL");
-        AutoPath HPL_R3 =  AutoPath.PP("HPL_R3");
-        AutoPath R3_HPL =  AutoPath.PP("R3_HPL");
+        //AutoPath HPL_R3 =  AutoPath.PP("HPL_R3");
+       // AutoPath R3_HPL =  AutoPath.PP("R3_HPL");
         //AutoPath HPL_R3 =  AutoPath.PP("HPL_R3");
         addCommands(
             L_R5.resetOdometryToStart(),
             L_R5.follow(),
             Auton_Functions.autonScore(coralScorer),
+            Auton_Functions.autonStopCoral(coralScorer),
             R5_HPL.follow(),
             //HP intake
             new Auton_Wait(50),
@@ -32,15 +33,18 @@ public class Left_5_Piece extends SequentialCommandGroup {
             new Auton_Wait(50),
             HPL_R4.follow(),
             Auton_Functions.autonScore(coralScorer),
+            Auton_Functions.autonStopCoral(coralScorer),
             R4_HPL.follow(),
             //HP intake
-            new Auton_Wait(50),
-            HPL_R3.follow(),
-            Auton_Functions.autonScore(coralScorer),
-            R3_HPL.follow(),
+            new Auton_Wait(50));
+           // HPL_R3.follow(),
+           // Auton_Functions.autonScore(coralScorer),
+           // Auton_Functions.autonStopCoral(coralScorer),
+           // R3_HPL.follow(),
             //HP intake
-            new Auton_Wait(50),
-            HPL_R3.follow(),
-            Auton_Functions.autonScore(coralScorer)  );
+           // new Auton_Wait(50),
+           // HPL_R3.follow(),
+           // Auton_Functions.autonScore(coralScorer),
+           // Auton_Functions.autonStopCoral(coralScorer));
     }
 }
