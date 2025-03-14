@@ -136,6 +136,7 @@ public class RobotContainer {
         m_AutoChooser.addOption("Algae Middle 1 Piece", 3);
         m_AutoChooser.addOption("copy", 4);
         m_AutoChooser.addOption("Left 5", 5);
+        m_AutoChooser.addOption("Left_5_Piece", 6);
 
     }
 
@@ -158,6 +159,8 @@ public class RobotContainer {
             return new copy(m_CoralScorer);
             case 5:
             return new Left_5(m_CoralScorer);
+            case 6:
+            return new Left_5_Piece(m_CoralScorer);
             default:
                 break;
         }
