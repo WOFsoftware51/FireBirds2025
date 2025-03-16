@@ -1,17 +1,36 @@
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
+import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 
+import edu.wpi.first.apriltag.AprilTag;
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N4;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.lib.util.COTSTalonFXSwerveConstants;
 import frc.lib.util.SwerveModuleConstants;
+import frc.robot.Constants.AutoConstants;
 
 public final class Constants {
     public static final double stickDeadband = 0.1;
@@ -28,8 +47,16 @@ public final class Constants {
 
 
     public static final class Swerve {
+        public static PIDController positionControllerX = new PIDController(AutoConstants.kPXController, 0.0, 0.0);
+        public static PIDController positionControllerY = new PIDController(AutoConstants.kPYController, 0.0, 0.0);
+        public static ProfiledPIDController positionControllerTheta = new ProfiledPIDController(AutoConstants.kPThetaController, 0.0, 0.0, AutoConstants.kThetaControllerConstraints);
         public static final double DRIVE_SPEED = 0.6;
         public static final int pigeonID = 1;
+        public static final PPHolonomicDriveController ppHolonomicController = 
+            new PPHolonomicDriveController(               
+                 new PIDConstants(Constants.AutoConstants.kPXController, 0.0, 0.0), // Translation PID constants 
+                new PIDConstants(Constants.AutoConstants.kPThetaController, 0.0, 0.0) // Rotation PID constants
+        );
 
         public static final COTSTalonFXSwerveConstants chosenModule =  //TODO: This must be tuned to specific robot
         COTSTalonFXSwerveConstants.SDS.MK4.Falcon500(COTSTalonFXSwerveConstants.SDS.MK4.driveRatios.L2);
@@ -146,6 +173,25 @@ public final class Constants {
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
     }
+    public static class Vision {        
+        // The layout of the AprilTags on the field
+        public static final AprilTagFieldLayout kTagLayout =
+                AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
+
+        // The standard deviations of our vision estimated poses, which affect correction rate
+        // (Fake values. Experiment and determine estimation noise on an actual robot.)
+        public static final Matrix<N4, N1> kSingleTagStdDevs = VecBuilder.fill(0.045, 0.045, Double.MAX_VALUE, Double.MAX_VALUE); //TODO FIND ACTUAL VALUES
+        public static final Matrix<N4, N1> kMultiTagStdDevs = VecBuilder.fill(0.045, 0.045,  Double.MAX_VALUE, Double.MAX_VALUE);
+        
+        public static final Map<Integer, AprilTag> aprilTagListReefBlue = kTagLayout.getTags().stream().filter(tag-> tag.ID > 16 && tag.ID < 23).collect(Collectors.toMap(apriltag -> apriltag.ID, apriltag -> apriltag));
+        public static final Map<Integer, AprilTag> aprilTagListReefRed = kTagLayout.getTags().stream().filter(tag-> tag.ID >= 6 && tag.ID <= 11).collect(Collectors.toMap(apriltag -> apriltag.ID, apriltag -> apriltag));
+        public static final HashMap<Integer, AprilTag> aprilTagListReef = new HashMap<>(aprilTagListReefRed); 
+                                                                        static {aprilTagListReef.putAll(aprilTagListReefBlue);}
+        public static final Map<Integer, AprilTag> aprilTagListHumanPlayerBlue = kTagLayout.getTags().stream().filter(tag-> tag.ID == 12 && tag.ID == 13).collect(Collectors.toMap(apriltag -> apriltag.ID, apriltag -> apriltag));
+        public static final Map<Integer, AprilTag> aprilTagListHumanPlayerRed = kTagLayout.getTags().stream().filter(tag-> tag.ID == 1 && tag.ID == 2).collect(Collectors.toMap(apriltag -> apriltag.ID, apriltag -> apriltag));
+        public static final Map<Integer, AprilTag> aprilTagList = kTagLayout.getTags().stream().collect(Collectors.toMap(apriltag -> apriltag.ID, apriltag -> apriltag));
+    }
+
 
 
     public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot
