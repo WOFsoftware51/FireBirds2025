@@ -15,6 +15,8 @@ public class Middle_1_Piece extends SequentialCommandGroup {
             C_R0.resetOdometryToStart(),
             C_R0.follow(),
             Commands.waitSeconds(0.5),
-            Auton_Functions.autonScore(coralScorer));
+            Auton_Functions.autonScore(coralScorer),
+            Auton_Functions.autonStopCoral(coralScorer)
+            );
     }
 }

@@ -216,6 +216,6 @@ public class Swerve extends SubsystemBase {
         }
 
         SmartDashboard.putNumber("Rotation2D Yaw", getGyroYaw().getDegrees());
-        SmartDashboard.putNumber("Gyro Yaw", gyro.getYaw().getValueAsDouble());
+        SmartDashboard.putNumber("Gyro Yaw", getHeading().getDegrees());
     }
 }

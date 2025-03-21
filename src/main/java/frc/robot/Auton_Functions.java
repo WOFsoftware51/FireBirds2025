@@ -27,7 +27,7 @@ public class Auton_Functions {
   {
   }
   public static Command autonScore(CoralScorer coralScorer){ 
-    return Commands.run(()->coralScorer.coralOn()).raceWith(autonWait(0.4).finallyDo((()->coralScorer.coralOn())));
+    return Commands.run(()->coralScorer.coralOn()).raceWith(autonWait(0.5).finallyDo((()->coralScorer.coralOn())));
   }
   public static Command autonScoreTop(Intake intake,Wrist wrist,Arm arm, int scorePosition ){
     return autonGoToPosition(arm, wrist, scorePosition).
@@ -39,14 +39,14 @@ public class Auton_Functions {
 
 
   public static Command autonIntakeTop(Intake intake){
-    return new IntakeReverse(intake).raceWith(autonWait(0.5));
+    return new IntakeReverse(intake).raceWith(autonWait(0.8));
   }
   public static Command autonWait(double timerSeconds)
   {
     return new Auton_Wait(timerSeconds*50.0);
   }
   public static Command algaeLow(Intake intake,Wrist wrist,Arm arm ){
-    return autonScoreTop(intake, wrist ,arm, Constants.ARM_HIGH_ALGAE_LVL3).andThen(new IntakeReverse(intake).raceWith(autonWait(2.0)));
+    return autonScoreTop(intake, wrist ,arm, Constants.ARM_HIGH_ALGAE_LVL3).andThen(new IntakeReverse(intake).raceWith(autonWait(5)));
   }
   public static Command autonAlgaePosition(AlgaeIntake algaeIntake,AlgaeIntake_Wrist algaeIntake_Wrist, CoralScorer coralScorer){
     return Commands.run(()->algaeIntake_Wrist.on()).raceWith(autonWait(0.5).finallyDo((()->algaeIntake_Wrist.on())));
@@ -54,8 +54,8 @@ public class Auton_Functions {
 
   public static Command autonAlgaeCommand(AlgaeIntake algaeIntake,AlgaeIntake_Wrist algaeIntake_Wrist, CoralScorer coralScorer){
     return new SequentialCommandGroup(
-      Commands.run(()->algaeIntake.reverse()).raceWith(autonWait(2.0)),
-      new AlgaeIntakeGoTo(algaeIntake_Wrist, Constants.Level_1).raceWith(autonWait(2.0).finallyDo((()->algaeIntake_Wrist.off()))));
+      Commands.run(()->algaeIntake.on()).raceWith(autonWait(3.0)),
+      new AlgaeIntakeGoTo(algaeIntake_Wrist, Constants.Level_1).raceWith(autonWait(3.0).finallyDo((()->algaeIntake_Wrist.off()))));
   }
   public static Command autonStopCoral(CoralScorer coralScorer){
     return Commands.runOnce(()->coralScorer.coralOff());
@@ -77,7 +77,7 @@ public static Command autonStopAlgaeBack(AlgaeIntake_Wrist algaeIntake_Wrist){
     return Commands.runOnce(()->algaeIntake_Wrist.off());
 }
 public static Command ArmHome(Intake intake,Wrist wrist,Arm arm ){
-  return autonScoreTop(intake, wrist ,arm, Constants.HOME).raceWith(autonWait(1.0));
+  return autonScoreTop(intake, wrist ,arm, Constants.HOME).raceWith(autonWait(3.0)).finallyDo(()->intake.powerOff());
 }
 public static Command autonStopTopScorer(Wrist wrist, Arm arm){
   return Commands.runOnce(()->arm.armOff()).alongWith(Commands.runOnce(()->wrist.wristOff()));

@@ -33,12 +33,6 @@ public class Algae_Middle_1_Piece extends SequentialCommandGroup {
             Auton_Functions.autonGoToPosition(arm, wrist, Constants.ARM_HIGH_ALGAE_LVL3),
             Auton_Functions.autonIntakeTop(intake),
             Auton_Functions.ArmHome( intake, wrist, arm),
-            Auton_Functions.autonStopTopScorer(wrist, arm),
-            Auton_Functions.autonAlgaeCommand(algaeIntake, algaeIntake_Wrist, coralScorer),
-            Auton_Functions.autonStopAlgae(algaeIntake),
-            Auton_Functions.autonAlgaeBack(algaeIntake_Wrist),
-            Auton_Functions.autonStopAlgaeBack(algaeIntake_Wrist),
-            Auton_Functions.autonStopAlgaeManualBack(algaeIntake_Wrist)
-            );
-    }
+            Auton_Functions.autonStopTopScorer(wrist, arm));
+}
 }

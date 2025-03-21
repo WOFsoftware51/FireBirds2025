@@ -33,10 +33,10 @@ public class Arm extends SubsystemBase {
   private double m_target = 0;
 
   public Arm() {
-    mArmMotor.getConfigurator().apply(new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive));
+    // mArmMotor.getConfigurator().apply(new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive));
     MotionMagicConfigs armMotionMagic = armConfig.MotionMagic;
     armMotionMagic.MotionMagicCruiseVelocity = 20; //400// 5 rotations per second cruise
-    armMotionMagic.MotionMagicAcceleration = 60; //160 // Take approximately 0.5 seconds %to reach max vel
+    armMotionMagic.MotionMagicAcceleration = 55; //160 // Take approximately 0.5 seconds %to reach max vel
     armMotionMagic.MotionMagicJerk = 0.0;//1600// Take approximately 0.2 seconds to reach max accel 
     armConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
     armConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = -97.0*Constants.ArmClass.ARM_GEAR_RATIO/360;
@@ -52,7 +52,7 @@ public class Arm extends SubsystemBase {
      
 
     armConfig.MotorOutput.withNeutralMode(NeutralModeValue.Brake);
-    armConfig.MotorOutput.withInverted(InvertedValue.Clockwise_Positive);
+    armConfig.MotorOutput.withInverted(InvertedValue.CounterClockwise_Positive);
     mArmMotor.getConfigurator().apply(armConfig);
     updateEncoderPosition();
   }

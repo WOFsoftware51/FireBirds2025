@@ -13,21 +13,26 @@ public class Right_3_Piece extends SequentialCommandGroup {
         AutoPath R1_HPR =  AutoPath.PP("R1_HPR");
         AutoPath HPR_R2 =  AutoPath.PP("HPR_R2");
         AutoPath R2_HPR =  AutoPath.PP("R2_HPR");
+        AutoPath HPR_R2_2 =  AutoPath.PP("HPR_R2_2");
+
         //AutoPath HPR_R2 =  AutoPath.PP("HPR_R2");
     
         addCommands(
             R_R1.resetOdometryToStart(),
             R_R1.follow(),
             Auton_Functions.autonScore(coralScorer),
+            Auton_Functions.autonStopCoral(coralScorer),
             R1_HPR.follow(),
             //HP intake
             new Auton_Wait(50),
             HPR_R2.follow(),
             Auton_Functions.autonScore(coralScorer),
+            Auton_Functions.autonStopCoral(coralScorer),
             R2_HPR.follow(),
             //HP intake
             new Auton_Wait(50),
-            HPR_R2.follow(),
-            Auton_Functions.autonScore(coralScorer)  );
+            HPR_R2_2.follow(),
+            Auton_Functions.autonScore(coralScorer),
+            Auton_Functions.autonStopCoral(coralScorer));
     }
 }

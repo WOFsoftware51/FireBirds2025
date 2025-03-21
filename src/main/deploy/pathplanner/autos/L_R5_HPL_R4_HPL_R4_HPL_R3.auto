@@ -33,18 +33,6 @@
           "data": {
             "pathName": "HPL_R4_2"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "R4_HPL_2"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "HPL_R3"
-          }
         }
       ]
     }

@@ -4,6 +4,7 @@ import com.ctre.phoenix6.configs.HardwareLimitSwitchConfigs;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -55,6 +56,7 @@ public class RobotContainer {
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+        Global_Variables.limeLight = Limelight.getInstance();
         printAutos();
         s_Swerve.setDefaultCommand(
             new TeleopSwerve(
@@ -62,7 +64,7 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(translationAxis), 
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
-                () -> false
+                () -> driver.getHID().getRightBumperButton()
             )
         );
         m_Wrist.setDefaultCommand(new Wrist_Command(m_Wrist, ()-> operator.getLeftY()));
@@ -93,10 +95,24 @@ public class RobotContainer {
         // driver.rightBumper().whileTrue(Commands.run(()->{Global_sVariables.isBoost = true;}).finallyDo(()->{Global_Variables.isBoost = false;}));
       
         /*Driver O */
-        driver.rightBumper().whileTrue(new AlgaeWrist_Manual (m_AlgaeIntake_Wrist, ()-> -0.25));
+        driver.a().whileTrue(new AlgaeWrist_Manual (m_AlgaeIntake_Wrist, ()-> -0.50));
         driver.leftBumper().whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, Constants.HOME));
         driver.leftTrigger(0.8).whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, Constants.Level_1));
         driver.leftTrigger(0.8).whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
+        driver.b().whileTrue(new TeleopSwerve(
+            s_Swerve, 
+            ()-> (Global_Variables.limeLight.getTV()* 0.05*(Global_Variables.limeLight.getTY()+6)), 
+            ()-> (Global_Variables.limeLight.getTV()* 0.015* (Global_Variables.limeLight.getTX()+17)), 
+            ()-> (Global_Variables.limeLight.getTV()* 0.05* (Global_Variables.limeLight.getDesiredAngle() - s_Swerve.getHeading().getDegrees())), 
+            ()->true));
+
+            driver.x().whileTrue(new TeleopSwerve(
+            s_Swerve, 
+            ()-> (Global_Variables.limeLight.getTV()* 0.05*(Global_Variables.limeLight.getTY()+6)), 
+            ()-> (Global_Variables.limeLight.getTV()* 0.015* (Global_Variables.limeLight.getTX()-17)), 
+            ()-> (Global_Variables.limeLight.getTV()* 0.05* (Global_Variables.limeLight.getDesiredAngle() - s_Swerve.getHeading().getDegrees())), 
+            ()->true));
+
         // driver.leftBumper().whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
         // driver.x().whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, Constants.ALGAE_GO_WRONG));
         operator.leftTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
@@ -108,7 +124,7 @@ public class RobotContainer {
         /*Operator O */
         operator.x().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.HUMAN_PLAYER));
         operator.x().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.HUMAN_PLAYER));
-        operator.x().whileTrue(new IntakeReverse(m_Intake)); //Intake IN
+        operator.x().whileTrue(new IntakeForward(m_Intake)); //Intake IN
 
         /**Scoring*/
         driver.rightTrigger(0.8).whileTrue(new AlgaeIntakeCommand(m_AlgaeIntake));
@@ -137,6 +153,7 @@ public class RobotContainer {
         m_AutoChooser.addOption("copy", 4);
         m_AutoChooser.addOption("Left 5", 5);
         m_AutoChooser.addOption("Left_5_Piece", 6);
+        m_AutoChooser.addOption("Right_3_Piece", 7);
 
     }
 
@@ -161,11 +178,20 @@ public class RobotContainer {
             return new Left_5(m_CoralScorer);
             case 6:
             return new Left_5_Piece(m_CoralScorer);
+            case 7:
+            return new Right_3_Piece(m_CoralScorer);
             default:
                 break;
         }
         // An ExampleCommand will run in autonomous
         return new PathPlanner_Test();
+
+           //     s_Swerve.drive(
+       // new Translation2d(-0.05*s_Swerve.ty, -0.015*s_Swerve.tx).times(Constants.Swerve.maxSpeed), 
+       // rotationPercent * Constants.Swerve.maxAngularVelocity, 
+       // true, 
+       // true
+      //  );
        
     }
 }

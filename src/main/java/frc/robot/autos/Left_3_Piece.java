@@ -18,15 +18,19 @@ public class Left_3_Piece extends SequentialCommandGroup {
             L_R5.resetOdometryToStart(),
             L_R5.follow(),
             Auton_Functions.autonScore(coralScorer),
+            Auton_Functions.autonStopCoral(coralScorer),
             R5_HPL.follow(),
             //HP intake
             new Auton_Wait(50),
             HPL_R4.follow(),
             Auton_Functions.autonScore(coralScorer),
+            Auton_Functions.autonStopCoral(coralScorer),
             R4_HPL.follow(),
             //HP intake
             new Auton_Wait(50),
             HPL_R4.follow(),
-            Auton_Functions.autonScore(coralScorer)  );
+            Auton_Functions.autonScore(coralScorer),
+            Auton_Functions.autonStopCoral(coralScorer)
+            );
     }
 }

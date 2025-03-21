@@ -47,11 +47,11 @@ public final class Constants {
         public static final int ARMID = 4;
         public static final int ARMCANCODERID = 7;
         public static final double ARMCANCODEROFFSET = -166.0;
-        public static final double ARM_GEAR_RATIO = 100.0;
+        public static final double ARM_GEAR_RATIO = 144.83;
 
-        public static final double ARM_LVL1_SCORE = -84.0;//-84.0;
+        public static final double ARM_LVL1_SCORE = -76.0;//-84.0;
         public static final double ARM_LVL2_SCORE = -105;//-84.0;
-        public static final double ARM_LVL3_SCORE = -70;//-65.0;
+        public static final double ARM_LVL3_SCORE = -74;//-65.0;
         public static final double ARM_HP_INTAKE = 0.0;
         public static final double ARM_HOME = -4.0;
         public static final double ARM_HIGH_ALGAE_LVL3 = -105.0;
@@ -68,7 +68,7 @@ public final class Constants {
         public static final double WRIST_GEAR_RATIO = 32.0;
 
         public static final double WRIST_LVL2_SCORE = 52.0;//6.0;
-        public static final double WRIST_LVL3_SCORE = 55.0;// 55.0;
+        public static final double WRIST_LVL3_SCORE = 57.0;// 55.0;
         public static final double WRIST_HP_INTAKE = 117.0;//133.0;
         public static final double WRIST_HOME = 80.0; /// 68.19
         public static final double WRIST_HIGH_ALGAE_LVL3 = 85.0;
