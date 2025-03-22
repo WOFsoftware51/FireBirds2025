@@ -35,8 +35,8 @@ public class Arm extends SubsystemBase {
   public Arm() {
     // mArmMotor.getConfigurator().apply(new MotorOutputConfigs().withInverted(InvertedValue.Clockwise_Positive));
     MotionMagicConfigs armMotionMagic = armConfig.MotionMagic;
-    armMotionMagic.MotionMagicCruiseVelocity = 20; //400// 5 rotations per second cruise
-    armMotionMagic.MotionMagicAcceleration = 55; //160 // Take approximately 0.5 seconds %to reach max vel
+    armMotionMagic.MotionMagicCruiseVelocity = 30; //400// 5 rotations per second cruise
+    armMotionMagic.MotionMagicAcceleration = 65; //160 // Take approximately 0.5 seconds %to reach max vel
     armMotionMagic.MotionMagicJerk = 0.0;//1600// Take approximately 0.2 seconds to reach max accel 
     armConfig.SoftwareLimitSwitch.ReverseSoftLimitEnable = true;
     armConfig.SoftwareLimitSwitch.ReverseSoftLimitThreshold = -97.0*Constants.ArmClass.ARM_GEAR_RATIO/360;
@@ -45,6 +45,7 @@ public class Arm extends SubsystemBase {
     
     Slot0Configs slot0 = armConfig.Slot0;
     slot0.kP = 1.92;
+
     slot0.kI = 0;
     slot0.kD = 0.0;
     slot0.kV = 0.0;

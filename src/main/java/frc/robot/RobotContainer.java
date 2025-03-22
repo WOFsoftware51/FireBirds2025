@@ -154,6 +154,7 @@ public class RobotContainer {
         m_AutoChooser.addOption("Left 5", 5);
         m_AutoChooser.addOption("Left_5_Piece", 6);
         m_AutoChooser.addOption("Right_3_Piece", 7);
+        m_AutoChooser.addOption("Back_Algae_1_Piece", 8);
 
     }
 
@@ -180,6 +181,8 @@ public class RobotContainer {
             return new Left_5_Piece(m_CoralScorer);
             case 7:
             return new Right_3_Piece(m_CoralScorer);
+            case 8:
+            return new Back_Algae_Middle_1_Piece(m_CoralScorer, m_AlgaeIntake_Wrist, m_AlgaeIntake, m_Arm, m_Wrist, m_Intake );
             default:
                 break;
         }

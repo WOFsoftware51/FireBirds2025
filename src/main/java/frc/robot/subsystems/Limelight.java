@@ -67,7 +67,6 @@ public class Limelight {
         return tv;
     }
     public double getDesiredAngle(){
-
         if(id==6){
             return 120;
         }
@@ -102,10 +101,10 @@ public class Limelight {
             return 0;
         }
         else if(id==22){
-            return 60;
+            return -60;
         }
-        else {
-            return 0;
+        else{
+            return 0.0;
         }
     }
 

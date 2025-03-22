@@ -67,8 +67,8 @@ public final class Constants {
         public static final int WRISTCANCODEROFFSET = 0;
         public static final double WRIST_GEAR_RATIO = 32.0;
 
-        public static final double WRIST_LVL2_SCORE = 52.0;//6.0;
-        public static final double WRIST_LVL3_SCORE = 57.0;// 55.0;
+        public static final double WRIST_LVL2_SCORE = 33.0;//6.0; 52.0;
+        public static final double WRIST_LVL3_SCORE = 65.0;// 55.0; 57.0;
         public static final double WRIST_HP_INTAKE = 117.0;//133.0;
         public static final double WRIST_HOME = 80.0; /// 68.19
         public static final double WRIST_HIGH_ALGAE_LVL3 = 85.0;
@@ -80,9 +80,14 @@ public final class Constants {
         public static final double BLINKIN_ORANGE = 0.65;
         public static final double BLINKIN_OCEAN = -0.37;
         public static final double BLINKIN_WHITE_SLOW = -0.21;
+    }
+    public static final class HangerClass {
+        public static final double HANGERUP= -0.50;
+        public static final double HANGERDOWN = -0.0;
+        public static final double HANGER_GEAR_RATIO = 101.0;
+        public static final int HANGERID = 0;
 
 
-        
     }
     public static final class Swerve {
         public static final double DRIVE_SPEED = 0.6;
