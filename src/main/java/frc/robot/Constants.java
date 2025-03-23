@@ -28,6 +28,7 @@ public final class Constants {
     public static final String BlinkInClass = null;
     public static final int WHITE = 9;
     public static final int DEFAULT_PURPLE = 10;
+    public static final int HANGER = 11;
 
     public static final class CoralScorerClass {
         public static final int CORALSCORERID = 3;
@@ -50,12 +51,12 @@ public final class Constants {
         public static final double ARM_GEAR_RATIO = 144.83;
 
         public static final double ARM_LVL1_SCORE = -76.0;//-84.0;
-        public static final double ARM_LVL2_SCORE = -105;//-84.0;
+        public static final double ARM_LVL2_SCORE = -107;//-84.0;105;
         public static final double ARM_LVL3_SCORE = -74;//-65.0;
         public static final double ARM_HP_INTAKE = 0.0;
         public static final double ARM_HOME = -4.0;
         public static final double ARM_HIGH_ALGAE_LVL3 = -105.0;
-        
+        public static final double ARM_HANG = -50.0;
     }
    
     public static final class IntakeClass {
@@ -67,11 +68,12 @@ public final class Constants {
         public static final int WRISTCANCODEROFFSET = 0;
         public static final double WRIST_GEAR_RATIO = 32.0;
 
-        public static final double WRIST_LVL2_SCORE = 33.0;//6.0; 52.0;
-        public static final double WRIST_LVL3_SCORE = 65.0;// 55.0; 57.0;
+        public static final double WRIST_LVL2_SCORE = 42.0;//6.0; 52.0; 33.0;
+        public static final double WRIST_LVL3_SCORE = 63.0;// 55.0; 57.0;
         public static final double WRIST_HP_INTAKE = 117.0;//133.0;
         public static final double WRIST_HOME = 80.0; /// 68.19
         public static final double WRIST_HIGH_ALGAE_LVL3 = 85.0;
+        public static final double WRIST_HANG = 140.0;
     }
     public static final class BlinkinClass {
         public static final double BLINKIN_PURPLE_DEFAULT = 0.91;
@@ -85,7 +87,7 @@ public final class Constants {
         public static final double HANGERUP= -0.50;
         public static final double HANGERDOWN = -0.0;
         public static final double HANGER_GEAR_RATIO = 101.0;
-        public static final int HANGERID = 0;
+        public static final int HANGERID = 8;
 
 
     }

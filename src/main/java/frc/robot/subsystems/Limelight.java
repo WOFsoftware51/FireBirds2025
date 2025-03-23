@@ -26,7 +26,6 @@ public class Limelight {
     public double ty = 0.0;
     public double tv = 0.0;
     public int id = 0;
-
     // public double distanceY = 0.0;
     // public double distanceX = 0.0;
     // public double distanceXY = 0.0;
@@ -67,45 +66,47 @@ public class Limelight {
         return tv;
     }
     public double getDesiredAngle(){
+        double yawTarget = 0;
         if(id==6){
-            return 120;
+           yawTarget = 120;
         }
         else if(id==7){
-            return 0;
+            yawTarget = 0;
         }
         else if(id==8){
-            return -120;
+            yawTarget = -120;
         }
         else if(id==9){
-            return -60;
+            yawTarget = -60;
         }
         else if(id==10){
-            return 0;
+            yawTarget = 0;
         }
         else if(id==11){
-            return 60;
+            yawTarget = 60;
         }
         else if(id==17){
-            return -120;
+            yawTarget  = -120;
         }
         else if(id==18){
-            return 180;
+            yawTarget  = 180;
         }
         else if(id==19){
-            return 120;
+            yawTarget = 120;
         }
         else if(id==20){
-            return 60;
+            yawTarget = 60;
         }
         else if(id==21){
-            return 0;
+            yawTarget = 0;
         }
         else if(id==22){
-            return -60;
+            yawTarget = -60;
         }
         else{
-            return 0.0;
+            yawTarget = 0.0;
         }
+        return yawTarget;
     }
 
     public double getVisibleTags(){

@@ -53,6 +53,7 @@ public class RobotContainer {
     private final Wrist m_Wrist = new Wrist();
     private final Intake m_Intake = new Intake();
     private final BlinkIn m_BlinkIn = new BlinkIn();
+    private final Hanger m_Hanger = new Hanger();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
@@ -116,8 +117,8 @@ public class RobotContainer {
         // driver.leftBumper().whileTrue(Commands.run(()->m_AlgaeIntake.reverse()).finallyDo(()->m_AlgaeIntake.off()));
         // driver.x().whileTrue(new AlgaeIntakeGoTo(m_AlgaeIntake_Wrist, Constants.ALGAE_GO_WRONG));
         operator.leftTrigger(0.8).whileTrue(new CoralScorerCommand(m_CoralScorer));
-        operator.rightTrigger(0.8).whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.ARM_HIGH_ALGAE_LVL3));
-        operator.rightTrigger(0.8).whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.WRIST_HIGH_ALGAE_LVL3));
+         operator.rightTrigger(0.8).whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.HANGER));
+        operator.rightTrigger(0.8).whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.HANGER));
         operator.leftTrigger(0.8).whileTrue(new BlinkIn_Command(m_BlinkIn, Constants.BlinkinClass.BLINKIN_WHITE));
         driver.leftTrigger(0.8).whileTrue(new BlinkIn_Command(m_BlinkIn, Constants.BlinkinClass.BLINKIN_OCEAN));
 
@@ -125,6 +126,11 @@ public class RobotContainer {
         operator.x().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.HUMAN_PLAYER));
         operator.x().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.HUMAN_PLAYER));
         operator.x().whileTrue(new IntakeForward(m_Intake)); //Intake IN
+        operator.povUp().whileTrue(new HangerCommand(m_Hanger, -0.35, -496));//496
+        operator.povDown().whileTrue(new HangerCommand(m_Hanger,  0.35, 0));
+        // operator.povUp().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.HANGER));
+        // operator.povUp().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.HANGER));
+
 
         /**Scoring*/
         driver.rightTrigger(0.8).whileTrue(new AlgaeIntakeCommand(m_AlgaeIntake));

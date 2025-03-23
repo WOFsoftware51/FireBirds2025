@@ -63,7 +63,9 @@ public class ArmGoToPositionCommand extends Command {
       case Constants.ARM_HIGH_ALGAE_LVL3: 
       armTarget = Constants.ArmClass.ARM_HIGH_ALGAE_LVL3;
       break;
-
+      case Constants.HANGER: 
+      armTarget = Constants.ArmClass.ARM_HANG;
+      break;
     default:
       armTarget = Constants.ArmClass.ARM_HOME;
       break;

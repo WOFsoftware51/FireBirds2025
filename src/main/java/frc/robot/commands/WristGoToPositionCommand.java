@@ -54,8 +54,9 @@ public class WristGoToPositionCommand extends Command {
       case Constants.WRIST_HIGH_ALGAE_LVL3: 
       wristTarget = Constants.WristClass.WRIST_HIGH_ALGAE_LVL3;
       break;
-
-
+      case Constants.HANGER: 
+      wristTarget = Constants.WristClass.WRIST_HANG;
+      break;
     default:
       wristTarget = Constants.WristClass.WRIST_HOME;
       break;

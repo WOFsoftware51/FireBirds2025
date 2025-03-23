@@ -76,6 +76,9 @@ public class Hanger extends SubsystemBase {
   public double getHangerPosition(){
     return mHangerMotor.getPosition().getValueAsDouble()*360/Constants.HangerClass.HANGER_GEAR_RATIO;
   }
+  public void resetEncoder(){
+    mHangerMotor.setPosition(0);
+  }
  // public void updateEncoderPosition(){
    //   HangerSetPosition(mHangerCANcoder.getPosition().getValueAsDouble() * 360 - Constants.HangerClass.HangerCANCODEROFFSET);
  // }

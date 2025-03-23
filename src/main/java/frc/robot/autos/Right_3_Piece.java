@@ -21,6 +21,7 @@ public class Right_3_Piece extends SequentialCommandGroup {
             R_R1.resetOdometryToStart(),
             R_R1.follow(),
             Auton_Functions.autonScore(coralScorer),
+            new Auton_Wait(50),
             Auton_Functions.autonStopCoral(coralScorer),
             R1_HPR.follow(),
             //HP intake
