@@ -69,7 +69,7 @@ public final class Constants {
         public static final double WRIST_GEAR_RATIO = 32.0;
 
         public static final double WRIST_LVL2_SCORE = 42.0;//6.0; 52.0; 33.0;
-        public static final double WRIST_LVL3_SCORE = 63.0;// 55.0; 57.0;
+        public static final double WRIST_LVL3_SCORE = 60.0;// 55.0; 57.0;
         public static final double WRIST_HP_INTAKE = 117.0;//133.0;
         public static final double WRIST_HOME = 80.0; /// 68.19
         public static final double WRIST_HIGH_ALGAE_LVL3 = 85.0;
@@ -79,7 +79,7 @@ public final class Constants {
         public static final double BLINKIN_PURPLE_DEFAULT = 0.91;
         public static final double BLINKIN_WHITE = -0.05;
         public static final double BLINKIN_AQUA = 0.81;
-        public static final double BLINKIN_ORANGE = 0.65;
+        public static final double BLINKIN_ORANGE = 0.65; 
         public static final double BLINKIN_OCEAN = -0.37;
         public static final double BLINKIN_WHITE_SLOW = -0.21;
     }
