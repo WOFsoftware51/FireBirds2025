@@ -71,7 +71,7 @@ public class Limelight {
            yawTarget = 120;
         }
         else if(id==7){
-            yawTarget = 0;
+            yawTarget = 180;
         }
         else if(id==8){
             yawTarget = -120;
