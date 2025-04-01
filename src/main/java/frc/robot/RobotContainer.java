@@ -103,14 +103,14 @@ public class RobotContainer {
         driver.b().whileTrue(new TeleopSwerve(
             s_Swerve, 
             ()-> (Global_Variables.limeLight.getTV()* 0.05*(Global_Variables.limeLight.getTY()+6)), 
-            ()-> (Global_Variables.limeLight.getTV()* 0.015* (Global_Variables.limeLight.getTX()-15)), 
+            ()-> (Global_Variables.limeLight.getTV()* 0.015* (Global_Variables.limeLight.getTX()+15)), 
             ()-> (Global_Variables.limeLight.getTV()* 0.05* (Global_Variables.limeLight.getDesiredAngle() - s_Swerve.getHeading().getDegrees())), 
             ()->true));
 
-            driver.x().whileTrue(new TeleopSwerve(
+        driver.x().whileTrue(new TeleopSwerve(
             s_Swerve, 
             ()-> (Global_Variables.limeLight.getTV()* 0.05*(Global_Variables.limeLight.getTY()+6)), 
-            ()-> (Global_Variables.limeLight.getTV()* 0.015* (Global_Variables.limeLight.getTX()-17)), 
+            ()-> (Global_Variables.limeLight.getTV()* 0.015* (Global_Variables.limeLight.getTX()-12)), 
             ()-> (Global_Variables.limeLight.getTV()* 0.05* (Global_Variables.limeLight.getDesiredAngle() - s_Swerve.getHeading().getDegrees())), 
             ()->true));
 
