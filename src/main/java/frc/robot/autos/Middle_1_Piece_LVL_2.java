@@ -15,7 +15,7 @@ public class Middle_1_Piece_LVL_2 extends SequentialCommandGroup {
             NP1.resetOdometryToStart(),
             NP1.follow(),
             Commands.waitSeconds(0.5),
-            Auton_Functions.autonScore(coralScorer),
+            // Auton_Functions.armLVL2(intake,wrist,arm),
             Auton_Functions.autonStopCoral(coralScorer)
             );
     }

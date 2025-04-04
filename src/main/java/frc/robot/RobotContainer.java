@@ -126,8 +126,8 @@ public class RobotContainer {
         operator.x().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.HUMAN_PLAYER));
         operator.x().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.HUMAN_PLAYER));
         operator.x().whileTrue(new IntakeForward(m_Intake)); //Intake IN
-        operator.povUp().whileTrue(new HangerCommand(m_Hanger, -0.35, -496));//496
-        operator.povDown().whileTrue(new HangerCommand(m_Hanger,  0.35, 0));
+        operator.povUp().whileTrue(new HangerCommand(m_Hanger, -0.35, -496000));//496
+        operator.povDown().whileTrue(new HangerCommand(m_Hanger,  0.35, 1000));
         // operator.povUp().whileTrue(new WristGoToPositionCommand(m_Wrist, Constants.HANGER));
         // operator.povUp().whileTrue(new ArmGoToPositionCommand(m_Arm, Constants.HANGER));
 

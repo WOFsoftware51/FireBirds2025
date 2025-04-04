@@ -82,10 +82,12 @@ public static Command ArmHome(Intake intake,Wrist wrist,Arm arm ){
 public static Command autonStopTopScorer(Wrist wrist, Arm arm){
   return Commands.runOnce(()->arm.armOff()).alongWith(Commands.runOnce(()->wrist.wristOff()));
 }
-public static Command ArmLVL3(Intake intake,Wrist wrist,Arm arm ){
-  return autonScoreTop(intake, wrist ,arm, Constants.Level_3).raceWith(autonWait(3.0)).finallyDo(()->intake.powerOff());
+public static Command armLVL2(Intake intake,Wrist wrist,Arm arm ){
+  return autonScoreTop(intake, wrist ,arm, Constants.Level_2).raceWith(autonWait(3.0)).finallyDo(()->intake.powerOff());
 }
-// public static Command autonScoreLVL3(Intake intake){ 
-//   return Commands.run(()->Intake.reverse()).raceWith(autonWait(0.5).finallyDo((()->Intake.reverse())));
-// }
+public static Command autonRunSmallVoltage(Intake intake){ 
+ return Commands.run(() -> intake.runSmallVoltage());
+ }
+
+
 }
