@@ -68,7 +68,7 @@ public final class Constants {
         public static final int WRISTCANCODEROFFSET = 0;
         public static final double WRIST_GEAR_RATIO = 32.0;
 
-        public static final double WRIST_LVL2_SCORE = 42.0;//6.0; 52.0; 33.0;
+        public static final double WRIST_LVL2_SCORE = 45.0;//6.0; 52.0; 33.0; 42.0;
         public static final double WRIST_LVL3_SCORE = 60.0;// 55.0; 57.0;
         public static final double WRIST_HP_INTAKE = 117.0;//133.0;
         public static final double WRIST_HOME = 80.0; /// 68.19

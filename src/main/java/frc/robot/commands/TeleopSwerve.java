@@ -33,7 +33,7 @@ public class TeleopSwerve extends Command {
         this.rotationSup = rotationSup;
         this.robotCentricSup = robotCentricSup;
         this.swerveSup = swerveSup;
-        tempHeading = s_Swerve.getHeading();
+ /*        tempHeading = s_Swerve.getHeading();
         if(tempHeading.getDegrees()>0){
             s_Swerve.setHeading(tempHeading.minus(new Rotation2d(Math.PI)));
         }
@@ -41,7 +41,7 @@ public class TeleopSwerve extends Command {
             s_Swerve.setHeading(tempHeading.plus(new Rotation2d(Math.PI)));
 
         }
-
+ */
         
     }
 

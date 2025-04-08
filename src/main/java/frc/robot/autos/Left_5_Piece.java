@@ -32,9 +32,9 @@ public class Left_5_Piece extends SequentialCommandGroup {
             R4_HPL.follow(),
             //HP intake
             new Auton_Wait(50),
-            HPL_R4_2.follow(),
-            Auton_Functions.autonScore(coralScorer),
-            Auton_Functions.autonStopCoral(coralScorer)
+            HPL_R4_2.follow()
+            // Auton_Functions.autonScore(coralScorer),
+            // Auton_Functions.autonStopCoral(coralScorer)
             //R4_HPL_2.follow(),
             //HP intake
             //new Auton_Wait(50),
